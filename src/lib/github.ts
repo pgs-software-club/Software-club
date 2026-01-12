@@ -36,7 +36,7 @@ const MOCK_REPOS: Repository[] = [
   {
     id: 2,
     name: "learning-resources",
-    description: "A curated list of software engineering resources and syllabus for club members.",
+    description: "A curated list of software engineering resources and roadmap for club members.",
     html_url: `https://github.com/${ORG_NAME}/learning-resources`,
     language: "Markdown",
     stargazers_count: 8,
@@ -56,19 +56,19 @@ const MOCK_REPOS: Repository[] = [
 const MOCK_MEMBERS: Contributor[] = [
   {
     id: 1,
-    login: "sushantthapa",
-    name: "Sushant Thapa",
-    avatar_url: "https://github.com/sushantthapa.png",
-    html_url: "https://github.com/sushantthapa",
+    login: "sairashgautam",
+    name: "Sairash Gautam",
+    avatar_url: "https://github.com/sairash",
+    html_url: "https://github.com/sairash",
     contributions: 45,
     bio: "President @ PGS Software Club | Full Stack Developer"
   },
   {
     id: 2,
-    login: "pgs-software-club",
-    name: "PGS Software Club",
-    avatar_url: "https://github.com/pgs-software-club.png",
-    html_url: "https://github.com/pgs-software-club",
+    login: "lagzen",
+    name: "lagzen Thakuri",
+    avatar_url: "https://github.com/lagzenthakuri",
+    html_url: "https://github.com/lagzenthakuri",
     contributions: 100,
     bio: "Empowering next-gen software innovators."
   }

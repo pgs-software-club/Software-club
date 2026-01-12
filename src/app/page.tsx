@@ -11,9 +11,9 @@ export default async function Home() {
   const repos = await getOrgRepos();
 
   const team = [
-    { name: "Sushant Thapa", role: "President", avatar: "https://github.com/pgs-software-club.png" },
-    { name: "John Doe", role: "Vice President", avatar: "https://avatar.vercel.sh/john" },
-    { name: "Jane Smith", role: "Technical Lead", avatar: "https://avatar.vercel.sh/jane" },
+    { name: "Sairash Gautam", role: "President", avatar: "https://github.com/sairash.png" },
+    { name: "Sagar Shrestha", role: "Vice President", avatar: "https://github.com/Chief-spartan-117.png" },
+    { name: "Lagzen Thakuri", role: "Acting President", avatar: "https://github.com/lagzenthakuri.png" },
   ];
 
   return (
@@ -24,9 +24,9 @@ export default async function Home() {
         <div className="absolute top-0 left-0 -z-10 h-full w-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
         
         <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
-          <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
+          {/* <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
             Future of Software Engineering
-          </Badge>
+          </Badge> */}
           <h1 className="max-w-4xl text-5xl font-extrabold tracking-tight sm:text-7xl">
             Building the Next Generation of <span className="text-primary">Software Innovators</span>
           </h1>
@@ -35,7 +35,7 @@ export default async function Home() {
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button size="lg" className="h-12 px-8" asChild>
-              <Link href="/syllabus">Start Learning <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/roadmap">Start Learning <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button size="lg" variant="outline" className="h-12 px-8" asChild>
               <a href="https://github.com/pgs-software-club" target="_blank" rel="noreferrer">
@@ -55,51 +55,60 @@ export default async function Home() {
       </section>
 
       {/* Why Join Us Section */}
-      <section className="container mx-auto px-4 py-12">
-        <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">Why Join PGS Software Club?</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            We provide the environment and resources you need to transition from a student to a professional developer.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {[
-            {
-              title: "Peer Learning",
-              description: "Collaborate with like-minded individuals on real-world projects and grow together.",
-              icon: <Users className="h-10 w-10 text-primary" />,
-            },
-            {
-              title: "Expert Guidance",
-              description: "Get mentorship from seniors and industry professionals who have been in your shoes.",
-              icon: <Code className="h-10 w-10 text-primary" />,
-            },
-            {
-              title: "Industry Ready",
-              description: "Learn modern tech stacks (React, Next.js, Supabase) that companies are actually using.",
-              icon: <Zap className="h-10 w-10 text-primary" />,
-            },
-          ].map((feature, i) => (
-            <Card key={i} className="border-none bg-secondary/20 shadow-none">
-              <CardHeader>
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-background shadow-sm">
-                  {feature.icon}
-                </div>
-                <CardTitle>{feature.title}</CardTitle>
-                <CardDescription className="text-base">
-                  {feature.description}
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
-      </section>
+<section className="container mx-auto px-4 py-12">
+  <div className="mb-16 text-center">
+    <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">
+      Why Join PGS Software Club?
+    </h2>
+    <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
+      In the AI era, software is no longer optional—it’s a basic skill.
+      We help you build strong foundations in web, AI, and cybersecurity
+      so you don’t just use technology, you understand and control it.
+    </p>
+  </div>
 
-      {/* Projects Section */}}
+  <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+    {[
+      {
+        title: "Vibe Coding Culture",
+        description:
+          "Code in a pressure-free, creative environment where learning feels natural. Build projects, experiment with ideas, and grow through collaboration—not competition.",
+        icon: <Users className="h-10 w-10 text-primary" />,
+      },
+      {
+        title: "AI-Aware Development",
+        description:
+          "Learn how AI really works—its power, limitations, and hallucinations. Use AI as a tool, not a crutch, while building real-world web and ML projects.",
+        icon: <Code className="h-10 w-10 text-primary" />,
+      },
+      {
+        title: "Future-Ready Skills",
+        description:
+          "Build a strong base in web development, cybersecurity, AI/ML, and modern tech stacks. Because in the AI-driven world, websites and software are essential—not optional.",
+        icon: <Zap className="h-10 w-10 text-primary" />,
+      },
+    ].map((feature, i) => (
+      <Card key={i} className="border-none bg-primary/6 shadow-none">
+        <CardHeader>
+          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-background shadow-sm">
+            {feature.icon}
+          </div>
+          <CardTitle>{feature.title}</CardTitle>
+          <CardDescription className="text-base">
+            {feature.description}
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    ))}
+  </div>
+</section>
+
+
+      {/* Projects Section */}
       <section className="container mx-auto px-4">
         <div className="mb-12 flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Open Source Projects</h2>
+            <h2 className="text-3xl font-bold tracking-tight">Public Projects</h2>
             <p className="text-muted-foreground">Recent work from our organization repositories</p>
           </div>
           <Button variant="ghost" asChild>
@@ -168,9 +177,9 @@ export default async function Home() {
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button size="lg" variant="secondary" className="h-12 px-8 bg-white text-primary hover:bg-white/90">
-              Join Discord
+             <Link href="https://forms.gle/iRT8FjiF3dGmJNmE8" target="_blank_"> Join The Club</Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-12 px-8 border-white/20 text-white hover:bg-white/10">
+            <Button size="lg" variant="outline" className="h-12 px-8 border-white/20 text-primary hover:bg-white/10">
               Contact Us
             </Button>
           </div>

@@ -7,31 +7,22 @@ import { Calendar, MapPin, Clock, Users } from "lucide-react";
 
 const events = [
   {
-    title: "Open Source Workshop",
-    description: "Learn how to contribute to open source projects and master Git workflow.",
-    date: "Dec 15, 2024",
-    time: "2:00 PM - 5:00 PM",
-    location: "Block B, Room 302",
-    status: "Upcoming",
-    category: "Workshop",
-  },
-  {
-    title: "Web3 & Blockchain Intro",
-    description: "An introductory session on decentralized applications and smart contracts.",
-    date: "Dec 20, 2024",
-    time: "1:00 PM - 3:00 PM",
-    location: "Online (Zoom)",
+    title: "TEDx Presidential Graduate School",
+    description: "Inspiring talks from thought leaders, innovators, and change-makers sharing ideas worth spreading.",
+    date: "Mar 15, 2026",
+    time: "10:00 AM - 4:00 PM",
+    location: "Presidential Graduate School Auditorium",
     status: "Registration Open",
-    category: "Seminar",
+    category: "Conference",
   },
   {
-    title: "Internal Hackathon 2024",
-    description: "24-hour building challenge. Theme will be announced at the start.",
-    date: "Jan 10, 2025",
+    title: "PGS Hackathon 2026",
+    description: "48-hour innovation challenge. Build impactful solutions with your team. Theme: Sustainability & Tech.",
+    date: "Apr 12, 2025",
     time: "9:00 AM onwards",
-    location: "Main Hall",
-    status: "Planned",
-    category: "Competition",
+    location: "Main Campus Hall",
+    status: "Upcoming",
+    category: "Hackathon",
   },
 ];
 
@@ -79,11 +70,11 @@ export default function EventsPage() {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center p-6 md:border-l">
+                {/* <div className="flex items-center p-6 md:border-l">
                   <button className="w-full rounded-full bg-primary px-6 py-2 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90 md:w-auto">
                     Register
                   </button>
-                </div>
+                </div> */}
               </div>
             </Card>
           </motion.div>

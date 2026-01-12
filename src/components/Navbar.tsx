@@ -11,7 +11,7 @@ const navItems = [
   { name: "Home", href: "/" },
   { name: "Members", href: "/members" },
   { name: "Projects", href: "/projects" },
-  { name: "Syllabus", href: "/syllabus" },
+  { name: "Roadmap", href: "/roadmap" },
   { name: "Resources", href: "/resources" },
   { name: "Events", href: "/events" },
 ];
@@ -25,7 +25,7 @@ export function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-xl font-bold tracking-tighter text-primary">PGS</span>
-          <span className="text-xl font-light tracking-tighter">Software Club</span>
+          <span className="text-xl font-bold tracking-tighter">Software Club</span>
         </Link>
 
         {/* Desktop Nav */}

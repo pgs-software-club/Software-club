@@ -9,6 +9,7 @@ import { Footer } from "@/components/Footer";
 export const metadata: Metadata = {
   title: "PGS Software Club | Presidential Software Club",
   description: "Official website of PGS Software Club. Resources, Projects, and Community for future software engineers.",
+  icons: "/logo.png"
 };
 
 export default function RootLayout({
