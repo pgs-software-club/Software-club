@@ -19,29 +19,46 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-20 pb-20">
       {/* Hero Section */}
-      <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden px-4 text-center">
+      <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden px-4">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.1),transparent_50%)]" />
         <div className="absolute top-0 left-0 -z-10 h-full w-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
         
-        <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
-          {/* <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
-            Future of Software Engineering
-          </Badge> */}
-          <h1 className="max-w-4xl text-5xl font-extrabold tracking-tight sm:text-7xl">
-            Building the Next Generation of <span className="text-primary">Software Innovators</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-            Welcome to PGS Software Club. We are a community of passionate developers, builders, and learners at Presidential Graduate School.
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button size="lg" className="h-12 px-8" asChild>
-              <Link href="/roadmap">Start Learning <ArrowRight className="ml-2 h-4 w-4" /></Link>
-            </Button>
-            <Button size="lg" variant="outline" className="h-12 px-8" asChild>
-              <a href="https://github.com/pgs-software-club" target="_blank" rel="noreferrer">
-                View Projects
-              </a>
-            </Button>
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+            {/* Content Section */}
+            <div className="text-center lg:text-left animate-in fade-in slide-in-from-left-8 duration-1000">
+              {/* <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
+                Future of Software Engineering
+              </Badge> */}
+              <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
+                Building the Next Generation of <span className="text-primary">Software Innovators</span>
+              </h1>
+              <p className="mt-6 text-lg text-muted-foreground sm:text-xl lg:max-w-2xl">
+                Welcome to PGS Software Club. We are a community of passionate developers, builders, and learners at Presidential Graduate School.
+              </p>
+              <div className="mt-10 flex flex-wrap justify-center lg:justify-start gap-4">
+                <Button size="lg" className="h-12 px-8" asChild>
+                  <Link href="/roadmap">Start Learning <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                </Button>
+                <Button size="lg" variant="outline" className="h-12 px-8" asChild>
+                  <a href="https://github.com/pgs-software-club" target="_blank" rel="noreferrer">
+                    View Projects
+                  </a>
+                </Button>
+              </div>
+            </div>
+            
+            {/* Logo Section */}
+            <div className="flex justify-center animate-in fade-in slide-in-from-right-8 duration-1000">
+              <div className="relative">
+                <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl scale-150"></div>
+                <img 
+                  src="/logo.png" 
+                  alt="PGS Software Club Logo" 
+                  className="relative h-48 w-48 sm:h-64 sm:w-64 lg:h-80 lg:w-80 object-contain rounded-xl ring-2 ring-orange-700 drop-shadow-2xl"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -179,7 +196,7 @@ export default async function Home() {
             <Button size="lg" variant="secondary" className="h-12 px-8 bg-white text-primary hover:bg-white/90">
              <Link href="https://forms.gle/iRT8FjiF3dGmJNmE8" target="_blank_"> Join The Club</Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-12 px-8 border-white/20 text-primary hover:bg-white/10">
+            <Button size="lg" variant="outline" className="h-12 px-8 border-white/20 hover:text-white text-primary hover:bg-white/10">
               Contact Us
             </Button>
           </div>
