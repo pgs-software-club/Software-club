@@ -14,6 +14,7 @@ const navItems = [
   { name: "Roadmap", href: "/roadmap" },
   { name: "Resources", href: "/resources" },
   { name: "Events", href: "/events" },
+  { name: "Admin", href: "/admin/login" },
 ];
 
 export function Navbar() {
