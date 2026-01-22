@@ -5,7 +5,7 @@ import { verifyAdminToken } from '@/lib/middleware';
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const admin = verifyAdminToken(request);
@@ -14,7 +14,7 @@ export async function PUT(
     }
 
     const { name, email, studentId, phone, course, year } = await request.json();
-    const { id } = params;
+    const { id } = await params;
 
     if (!name) {
       return NextResponse.json({ error: 'Name is required' }, { status: 400 });
@@ -68,7 +68,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const admin = verifyAdminToken(request);
@@ -76,7 +76,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     await connectDB();
     
