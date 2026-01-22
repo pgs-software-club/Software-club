@@ -203,9 +203,9 @@ export default function ReportsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-4">
@@ -218,7 +218,7 @@ export default function ReportsPage() {
                 Back to Dashboard
               </Button>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Attendance Reports</h1>
+                <h1 className="text-2xl font-bold text-foreground">Attendance Reports</h1>
                 <p className="text-sm text-muted-foreground">View attendance history and statistics</p>
               </div>
             </div>
@@ -248,12 +248,12 @@ export default function ReportsPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Present</CardTitle>
-              <Badge variant="default" className="bg-green-500">
+              <Badge variant="default" className="bg-green-500 dark:bg-green-600">
                 <BarChart3 className="h-3 w-3" />
               </Badge>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">{stats.present}</div>
+              <div className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.present}</div>
               <p className="text-xs text-muted-foreground">
                 {stats.total > 0 ? Math.round((stats.present / stats.total) * 100) : 0}% of total
               </p>
@@ -268,7 +268,7 @@ export default function ReportsPage() {
               </Badge>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">{stats.absent}</div>
+              <div className="text-2xl font-bold text-red-600 dark:text-red-400">{stats.absent}</div>
               <p className="text-xs text-muted-foreground">
                 {stats.total > 0 ? Math.round((stats.absent / stats.total) * 100) : 0}% of total
               </p>
@@ -278,12 +278,12 @@ export default function ReportsPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Late</CardTitle>
-              <Badge variant="secondary" className="bg-yellow-500 text-white">
+              <Badge variant="secondary" className="bg-yellow-500 text-white dark:bg-yellow-600 dark:text-white">
                 <BarChart3 className="h-3 w-3" />
               </Badge>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-yellow-600">{stats.late}</div>
+              <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{stats.late}</div>
               <p className="text-xs text-muted-foreground">
                 {stats.total > 0 ? Math.round((stats.late / stats.total) * 100) : 0}% of total
               </p>

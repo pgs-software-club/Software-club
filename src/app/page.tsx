@@ -128,9 +128,10 @@ export default async function Home() {
             <h2 className="text-3xl font-bold tracking-tight">Public Projects</h2>
             <p className="text-muted-foreground">Recent work from our organization repositories</p>
           </div>
-          <Button variant="ghost" asChild>
-            <a href="https://github.com/pgs-software-club" target="_blank" rel="noreferrer">
-              See All <Github className="ml-2 h-4 w-4" />
+          <Button variant="ghost" asChild className="group">
+            <a href="https://github.com/pgs-software-club" target="_blank" rel="noreferrer" className="flex items-center">
+              <span className="group-hover:text-primary transition-colors">See All</span>
+              <Github className="ml-2 h-4 w-4 text-muted-foreground group-hover:text-[#333] dark:group-hover:text-white transition-colors" />
             </a>
           </Button>
         </div>
@@ -196,7 +197,7 @@ export default async function Home() {
             <Button size="lg" variant="secondary" className="h-12 px-8 bg-white text-primary hover:bg-white/90">
              <Link href="https://forms.gle/iRT8FjiF3dGmJNmE8" target="_blank_"> Join The Club</Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-12 px-8 border-white/20 hover:text-white text-primary hover:bg-white/10">
+            <Button size="lg" variant="outline" className="h-12 px-8 border-white/20 text-white hover:bg-white/10 hover:text-white">
               Contact Us
             </Button>
           </div>

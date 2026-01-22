@@ -182,9 +182,9 @@ export default function StudentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-4">
@@ -197,7 +197,7 @@ export default function StudentsPage() {
                 Back to Dashboard
               </Button>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Student Management</h1>
+                <h1 className="text-2xl font-bold text-foreground">Student Management</h1>
                 <p className="text-sm text-muted-foreground">Manage student records</p>
               </div>
             </div>
@@ -207,7 +207,7 @@ export default function StudentsPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {(error || success) && (
-          <Alert className={`mb-6 ${success ? 'border-green-200 bg-green-50' : ''}`} variant={error ? 'destructive' : 'default'}>
+          <Alert className={`mb-6 ${success ? 'border-green-500/20 bg-green-500/10 dark:border-green-400/20 dark:bg-green-400/10' : ''}`} variant={error ? 'destructive' : 'default'}>
             <AlertDescription>{error || success}</AlertDescription>
           </Alert>
         )}
@@ -372,7 +372,7 @@ export default function StudentsPage() {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleDelete(student._id)}
-                          className="text-red-600 hover:text-red-700"
+                          className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>

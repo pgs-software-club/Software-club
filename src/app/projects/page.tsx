@@ -29,7 +29,22 @@ export default async function ProjectsPage() {
                 <div className="rounded-lg bg-primary/10 p-2 text-primary">
                   <Code className="h-5 w-5" />
                 </div>
-                <Badge variant="secondary" className="bg-secondary/10 text-secondary-foreground">
+                <Badge 
+                  variant="secondary" 
+                  className={`${
+                    repo.language === "JavaScript" 
+                      ? "bg-yellow-500/10 text-yellow-600 dark:bg-yellow-300/25 dark:text-yellow-200" 
+                      : repo.language === "HTML"
+                      ? "bg-yellow-500/10 text-yellow-600 dark:bg-yellow-300/25 dark:text-yellow-200"
+                      : repo.language === "TypeScript"
+                      ? "bg-blue-500/10 text-blue-600 dark:bg-blue-400/20 dark:text-blue-400"
+                      : repo.language === "Python"
+                      ? "bg-green-500/10 text-green-600 dark:bg-green-400/20 dark:text-green-400"
+                      : repo.language === "Java"
+                      ? "bg-orange-500/10 text-orange-600 dark:bg-orange-400/20 dark:text-orange-400"
+                      : "bg-secondary/10 text-secondary-foreground"
+                  }`}
+                >
                   {repo.language || "TypeScript"}
                 </Badge>
               </div>

@@ -104,13 +104,13 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+              <h1 className="text-2xl font-bold text-foreground">Admin Dashboard</h1>
               <p className="text-sm text-muted-foreground">Student Management System</p>
             </div>
             <Button onClick={handleLogout} variant="outline" size="sm">
@@ -138,12 +138,12 @@ export default function AdminDashboard() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Present Today</CardTitle>
-              <Badge variant="default" className="bg-green-500">
+              <Badge variant="default" className="bg-green-500 dark:bg-green-600">
                 <BarChart3 className="h-3 w-3" />
               </Badge>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">{stats.presentToday}</div>
+              <div className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.presentToday}</div>
               <p className="text-xs text-muted-foreground">Students present</p>
             </CardContent>
           </Card>
@@ -156,7 +156,7 @@ export default function AdminDashboard() {
               </Badge>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">{stats.absentToday}</div>
+              <div className="text-2xl font-bold text-red-600 dark:text-red-400">{stats.absentToday}</div>
               <p className="text-xs text-muted-foreground">Students absent</p>
             </CardContent>
           </Card>
@@ -164,12 +164,12 @@ export default function AdminDashboard() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Late Today</CardTitle>
-              <Badge variant="secondary" className="bg-yellow-500 text-white">
+              <Badge variant="secondary" className="bg-yellow-500 text-white dark:bg-yellow-600 dark:text-white">
                 <BarChart3 className="h-3 w-3" />
               </Badge>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-yellow-600">{stats.lateToday}</div>
+              <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{stats.lateToday}</div>
               <p className="text-xs text-muted-foreground">Students late</p>
             </CardContent>
           </Card>

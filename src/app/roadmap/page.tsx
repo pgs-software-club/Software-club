@@ -71,7 +71,7 @@ const phases = [
 
 export default function RoadmapPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 p-8">
+    <div className="min-h-screen bg-background text-foreground p-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
@@ -80,10 +80,10 @@ export default function RoadmapPage() {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          <h1 className="text-5xl font-bold mb-3 text-slate-900">
+          <h1 className="text-5xl font-bold mb-3 text-foreground">
             Full-Stack Roadmap
           </h1>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-muted-foreground">
             16-week curriculum • 2 sessions/week • Portfolio-ready projects
           </p>
         </motion.div>
@@ -96,16 +96,16 @@ export default function RoadmapPage() {
           className="grid grid-cols-3 gap-6 mb-20"
         >
           <div className="text-center">
-            <p className="text-3xl font-bold text-slate-900 mb-1">4</p>
-            <p className="text-sm text-slate-500">Months</p>
+            <p className="text-3xl font-bold text-foreground mb-1">4</p>
+            <p className="text-sm text-muted-foreground">Months</p>
           </div>
           <div className="text-center">
-            <p className="text-3xl font-bold text-slate-900 mb-1">32</p>
-            <p className="text-sm text-slate-500">Sessions</p>
+            <p className="text-3xl font-bold text-foreground mb-1">32</p>
+            <p className="text-sm text-muted-foreground">Sessions</p>
           </div>
           <div className="text-center">
-            <p className="text-3xl font-bold text-slate-900 mb-1">6+</p>
-            <p className="text-sm text-slate-500">Projects</p>
+            <p className="text-3xl font-bold text-foreground mb-1">6+</p>
+            <p className="text-sm text-muted-foreground">Projects</p>
           </div>
         </motion.div>
 
@@ -120,14 +120,14 @@ export default function RoadmapPage() {
               className="relative"
             >
               {/* Phase Card */}
-              <div className="border border-slate-200 rounded-lg p-8 hover:shadow-lg transition-shadow">
+              <div className="border border-border rounded-lg p-8 hover:shadow-lg transition-shadow bg-card">
                 {/* Phase Header */}
                 <div className="flex items-start justify-between mb-6">
                   <div>
-                    <p className="text-sm text-slate-500 mb-1">
+                    <p className="text-sm text-muted-foreground mb-1">
                       {phase.weeks} • {phase.sessions}
                     </p>
-                    <h3 className="text-2xl font-bold text-slate-900">
+                    <h3 className="text-2xl font-bold text-foreground">
                       {phase.phase}
                     </h3>
                   </div>
@@ -139,26 +139,26 @@ export default function RoadmapPage() {
                 {/* Content */}
                 <div className="space-y-6 mt-6">
                   <div>
-                    <p className="text-sm text-slate-500 uppercase tracking-wide mb-1">
+                    <p className="text-sm text-muted-foreground uppercase tracking-wide mb-1">
                       Focus
                     </p>
-                    <p className="text-lg text-slate-700">{phase.focus}</p>
+                    <p className="text-lg text-muted-foreground">{phase.focus}</p>
                   </div>
 
                   <div>
-                    <p className="text-sm text-slate-500 mb-2">Final Project</p>
-                    <p className="font-medium text-slate-900">{phase.project}</p>
+                    <p className="text-sm text-muted-foreground mb-2">Final Project</p>
+                    <p className="font-medium text-foreground">{phase.project}</p>
                   </div>
 
                   <div>
-                    <p className="text-sm font-medium text-slate-500 mb-3">
+                    <p className="text-sm font-medium text-muted-foreground mb-3">
                       Key Topics
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {phase.topics.map((topic) => (
                         <span
                           key={topic}
-                          className="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full"
+                          className="px-3 py-1 bg-muted text-muted-foreground text-xs rounded-full"
                         >
                           {topic}
                         </span>
@@ -176,22 +176,22 @@ export default function RoadmapPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-24 text-center border-t border-slate-200 pt-16"
+          className="mt-24 text-center border-t border-border pt-16"
         >
-          <h2 className="text-3xl font-bold mb-3 text-slate-900">
+          <h2 className="text-3xl font-bold mb-3 text-foreground">
             Start Your Journey Today
           </h2>
-          <p className="text-slate-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join our structured program with weekly projects and code reviews.
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/resources">
-              <Button className="bg-slate-900 text-white hover:bg-slate-800">
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                 View Resources
               </Button>
             </Link>
             <Link href="/projects">
-              <Button variant="outline" className="border-slate-300 text-slate-900 hover:bg-slate-50">
+              <Button variant="outline" className="border-border text-foreground hover:bg-muted">
                 See Projects
               </Button>
             </Link>
@@ -204,7 +204,7 @@ export default function RoadmapPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.5 }}
-        className="mt-20 text-center text-slate-500 text-sm"
+        className="mt-20 text-center text-muted-foreground text-sm"
       >
         <p>2 sessions/week • Monday (Theory) & Wednesday (Hands-on) • 90 minutes each</p>
       </motion.div>

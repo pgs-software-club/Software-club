@@ -22,13 +22,13 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider">Connect</h3>
             <div className="mt-4 flex gap-4">
-              <a href="https://github.com/pgs-software-club" className="text-muted-foreground hover:text-primary">
+              <a href="https://github.com/pgs-software-club" className="text-muted-foreground hover:text-[#333] dark:hover:text-white transition-colors">
                 <Github className="h-5 w-5" />
               </a>
-              <a href="https://www.linkedin.com/company/pgs-software-club" className="text-muted-foreground hover:text-primary">
+              <a href="https://www.linkedin.com/company/pgs-software-club" className="text-muted-foreground hover:text-[#0077B5] transition-colors">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="https://www.instagram.com/pgs_softwareclub" className="text-muted-foreground hover:text-primary">
+              <a href="https://www.instagram.com/pgs_softwareclub" className="text-muted-foreground hover:text-[#E4405F] transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>

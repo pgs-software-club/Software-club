@@ -194,9 +194,9 @@ export default function AttendancePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-4">
@@ -209,7 +209,7 @@ export default function AttendancePage() {
                 Back to Dashboard
               </Button>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Take Attendance</h1>
+                <h1 className="text-2xl font-bold text-foreground">Take Attendance</h1>
                 <p className="text-sm text-muted-foreground">Mark student attendance</p>
               </div>
             </div>
@@ -219,7 +219,7 @@ export default function AttendancePage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {(error || success) && (
-          <Alert className={`mb-6 ${success ? 'border-green-200 bg-green-50' : ''}`} variant={error ? 'destructive' : 'default'}>
+          <Alert className={`mb-6 ${success ? 'border-green-500/20 bg-green-500/10 dark:border-green-400/20 dark:bg-green-400/10' : ''}`} variant={error ? 'destructive' : 'default'}>
             <AlertDescription>{error || success}</AlertDescription>
           </Alert>
         )}
@@ -245,10 +245,10 @@ export default function AttendancePage() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm text-green-600">Present</CardTitle>
+              <CardTitle className="text-sm text-green-600 dark:text-green-400">Present</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                 {getStatusCount('present')}
               </div>
             </CardContent>
@@ -256,10 +256,10 @@ export default function AttendancePage() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm text-red-600">Absent</CardTitle>
+              <CardTitle className="text-sm text-red-600 dark:text-red-400">Absent</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">
+              <div className="text-2xl font-bold text-red-600 dark:text-red-400">
                 {getStatusCount('absent')}
               </div>
             </CardContent>
@@ -267,10 +267,10 @@ export default function AttendancePage() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm text-yellow-600">Late</CardTitle>
+              <CardTitle className="text-sm text-yellow-600 dark:text-yellow-400">Late</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-yellow-600">
+              <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
                 {getStatusCount('late')}
               </div>
             </CardContent>
