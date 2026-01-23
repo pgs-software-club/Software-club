@@ -19,6 +19,7 @@ export default async function Home() {
     { name: "Sairash Gautam", role: "President", avatar: "https://github.com/sairash.png" },
     { name: "Sagar Shrestha", role: "Vice President", avatar: "https://github.com/Chief-spartan-117.png" },
     { name: "Lagzen Thakuri", role: "Acting President", avatar: "https://github.com/lagzenthakuri.png" },
+    { name: "Manash Hada", role: "Assistant of President", avatar: "https://github.com/hadeyghoptey.png" },
   ];
 
   return (
@@ -178,7 +179,7 @@ export default async function Home() {
       {/* Team Section */}
       <section className="container mx-auto px-4 py-12">
         <h2 className="mb-12 text-center text-3xl font-bold tracking-tight">Our Leadership</h2>
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((member) => (
             <div key={member.name} className="flex flex-col items-center text-center">
               <div className="relative h-48 w-48 overflow-hidden rounded-2xl border-4 border-primary/10">
