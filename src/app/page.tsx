@@ -6,6 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Github, Code, Users, Calendar, ArrowRight, Zap } from "lucide-react";
 import Link from "next/link";
 
+// Configure the route to be dynamic since we're fetching external data
+export const dynamic = 'force-dynamic';
+// Revalidate every 5 minutes for homepage data
+export const revalidate = 300;
+
 export default async function Home() {
   const members = await getAllMembers();
   const repos = await getOrgRepos();

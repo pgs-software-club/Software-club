@@ -4,6 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { Github, Code, Users, Star, ExternalLink, GitBranch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Configure the route to be dynamic since we're fetching external data
+export const dynamic = 'force-dynamic';
+// Revalidate every 5 minutes (300 seconds) for fresh GitHub data
+export const revalidate = 300;
+
 export default async function ProjectsPage() {
   const repos = await getOrgRepos();
 

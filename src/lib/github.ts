@@ -20,7 +20,8 @@ export interface Contributor {
 
 const ORG_NAME = 'pgs-software-club';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.NEXT_PUBLIC_GITHUB_TOKEN;
-const REVALIDATE_TIME = 0; // Disable cache temporarily to debug
+// Cache for 5 minutes (300 seconds) to balance freshness with performance
+const REVALIDATE_TIME = 300;
 
 // High-quality mock data for fallback
 const MOCK_REPOS: Repository[] = [

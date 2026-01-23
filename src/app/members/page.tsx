@@ -4,6 +4,11 @@ import { Users, Award, GraduationCap, Mail, Phone } from "lucide-react";
 import connectDB from "@/lib/mongodb";
 import Student from "@/models/Student";
 
+// Configure the route to be dynamic since we're fetching database data
+export const dynamic = 'force-dynamic';
+// Revalidate every 10 minutes for member data
+export const revalidate = 600;
+
 async function getStudents() {
   try {
     await connectDB();
