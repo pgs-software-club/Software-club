@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Contributor } from "@/lib/github";
-import { Github } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 
 interface MemberMarqueeProps {
   members: Contributor[];
@@ -33,7 +33,7 @@ export function MemberMarquee({ members }: MemberMarqueeProps) {
               href={member.html_url}
               target="_blank"
               rel="noreferrer"
-              className="mx-6 flex items-center gap-5 rounded-2xl border border-primary/5 bg-background/50 px-6 py-3 transition-all hover:border-primary/30 hover:bg-background hover:shadow-xl hover:shadow-primary/5"
+              className="mx-4 md:mx-6 flex items-center gap-4 md:gap-5 rounded-2xl border border-primary/5 bg-background/50 px-4 md:px-6 py-3 transition-all hover:border-primary/30 hover:bg-background hover:shadow-xl hover:shadow-primary/5"
             >
               <img 
                 src={member.avatar_url} 
@@ -42,19 +42,19 @@ export function MemberMarquee({ members }: MemberMarqueeProps) {
               />
               <div className="flex flex-col items-start leading-tight">
                 <div className="flex items-center gap-2">
-                  <span className="text-base font-bold tracking-tight text-foreground">{member.name || member.login}</span>
+                  <span className="text-sm md:text-base font-bold tracking-tight text-foreground">{member.name || member.login}</span>
                 </div>
                   <div className="mt-0.5 flex flex-col">
-                    <span className="text-[11px] font-medium text-primary">GitHub Profile</span>
-                    <span className="text-[10px] text-muted-foreground/70">{(member.html_url || '').replace('https://', '')}</span>
+                    <span className="text-xs md:text-[11px] font-medium text-primary">GitHub Profile</span>
+                    <span className="text-xs md:text-[10px] text-muted-foreground/70">{(member.html_url || '').replace('https://', '')}</span>
                   </div>
                 {member.bio && (
-                  <p className="mt-1.5 max-w-[220px] overflow-hidden text-ellipsis whitespace-normal line-clamp-1 text-[11px] italic text-muted-foreground">
+                  <p className="mt-1.5 max-w-[220px] overflow-hidden text-ellipsis whitespace-normal line-clamp-1 text-xs md:text-[11px] italic text-muted-foreground">
                     "{member.bio}"
                   </p>
                 )}
               </div>
-              <Github className="ml-2 h-4 w-4 text-muted-foreground/30 group-hover:text-primary/50 transition-colors" />
+              <FaGithub className="ml-2 h-4 w-4 text-muted-foreground/30 group-hover:text-primary/50 transition-colors" />
             </a>
 
         ))}

@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Github, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -23,7 +24,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+    <nav className="fixed top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 md:bg-background/80 md:backdrop-blur-md md:supports-[backdrop-filter]:bg-background/60 max-md:mobile-navbar-blur">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-xl font-bold tracking-tighter text-primary">PGS</span>
@@ -47,7 +48,7 @@ export function Navbar() {
             <ThemeToggle />
             <Button variant="outline" size="sm" asChild className="gap-2">
               <a href="https://github.com/pgs-software-club" target="_blank" rel="noreferrer">
-                <Github className="h-4 w-4" />
+                <FaGithub className="h-4 w-4" />
                 GitHub
               </a>
             </Button>
@@ -68,7 +69,7 @@ export function Navbar() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute top-16 left-0 w-full border-b border-border/50 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 p-4 md:hidden"
+          className="absolute top-16 left-0 w-full border-b border-border/50 mobile-navbar-menu-blur p-4 md:hidden"
         >
           <div className="flex flex-col gap-4">
             {navItems.map((item) => (
@@ -76,19 +77,13 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`text-lg font-medium ${
+                className={`py-3 text-lg font-medium ${
                   pathname === item.href ? "text-primary" : "text-muted-foreground"
                 }`}
               >
                 {item.name}
               </Link>
             ))}
-            <Button variant="outline" asChild className="w-full justify-center gap-2">
-              <a href="https://github.com/pgs-software-club" target="_blank" rel="noreferrer">
-                <Github className="h-4 w-4" />
-                GitHub
-              </a>
-            </Button>
           </div>
         </motion.div>
       )}

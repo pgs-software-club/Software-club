@@ -1,8 +1,6 @@
 "use client"
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code2, Layout, Zap, Atom, Database, Server, GitBranch, Package, Cloud, Container, Rocket, Users, Terminal } from "lucide-react";
+import { Code2, Layout, Zap, Database, Server, Rocket } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -206,7 +204,7 @@ export default function RoadmapPage() {
         transition={{ duration: 0.6, delay: 1.5 }}
         className="mt-20 text-center text-muted-foreground text-sm"
       >
-        <p>2 sessions/week • Monday (Theory) & Wednesday (Hands-on) • 90 minutes each</p>
+        <p>2 sessions/week • Wednesday & Thursday • 90 minutes each</p>
       </motion.div>
     </div>
   );

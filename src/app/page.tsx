@@ -3,7 +3,8 @@ import { MemberMarquee } from "@/components/MemberMarquee";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Github, Code, Users, Calendar, ArrowRight, Zap } from "lucide-react";
+import { Code, Users, Calendar, ArrowRight, Zap } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 
 // Configure the route to be dynamic since we're fetching external data
@@ -30,7 +31,7 @@ export default async function Home() {
         <div className="absolute top-0 left-0 -z-10 h-full w-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
         
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 lg:gap-20 items-center">
             {/* Content Section */}
             <div className="text-center lg:text-left animate-in fade-in slide-in-from-left-8 duration-1000">
               {/* <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
@@ -61,7 +62,7 @@ export default async function Home() {
                 <img 
                   src="/logo.png" 
                   alt="PGS Software Club Logo" 
-                  className="relative h-48 w-48 sm:h-64 sm:w-64 lg:h-80 lg:w-80 object-contain rounded-xl ring-2 ring-orange-700 drop-shadow-2xl"
+                  className="relative h-40 w-40 sm:h-64 sm:w-64 lg:h-80 lg:w-80 object-contain rounded-xl ring-2 ring-orange-700 drop-shadow-2xl"
                 />
               </div>
             </div>
@@ -137,7 +138,7 @@ export default async function Home() {
           <Button variant="ghost" asChild className="group">
             <a href="https://github.com/pgs-software-club" target="_blank" rel="noreferrer" className="flex items-center">
               <span className="group-hover:text-primary transition-colors">See All</span>
-              <Github className="ml-2 h-4 w-4 text-muted-foreground group-hover:text-[#333] dark:group-hover:text-white transition-colors" />
+              <FaGithub className="ml-2 h-4 w-4 text-muted-foreground group-hover:text-[#333] dark:group-hover:text-white transition-colors" />
             </a>
           </Button>
         </div>
@@ -163,7 +164,7 @@ export default async function Home() {
                       <Users className="h-4 w-4" /> 10+
                     </span>
                     <span className="flex items-center gap-1">
-                      <Github className="h-4 w-4" /> {repo.stargazers_count}
+                      <FaGithub className="h-4 w-4" /> {repo.stargazers_count}
                     </span>
                   </div>
                   <Button variant="ghost" size="sm" asChild className="group-hover:text-primary">
@@ -179,14 +180,14 @@ export default async function Home() {
       {/* Team Section */}
       <section className="container mx-auto px-4 py-12">
         <h2 className="mb-12 text-center text-3xl font-bold tracking-tight">Our Leadership</h2>
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-4">
           {team.map((member) => (
             <div key={member.name} className="flex flex-col items-center text-center">
-              <div className="relative h-48 w-48 overflow-hidden rounded-2xl border-4 border-primary/10">
+              <div className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-48 lg:w-48 overflow-hidden rounded-2xl border-4 border-primary/10">
                 <img src={member.avatar} alt={member.name} className="h-full w-full object-cover grayscale transition-all hover:grayscale-0" />
               </div>
-              <h3 className="mt-6 text-xl font-bold">{member.name}</h3>
-              <p className="text-sm font-medium text-primary uppercase tracking-wider">{member.role}</p>
+              <h3 className="mt-3 sm:mt-4 lg:mt-6 text-sm sm:text-lg lg:text-xl font-bold">{member.name}</h3>
+              <p className="text-xs sm:text-sm font-medium text-primary uppercase tracking-wider">{member.role}</p>
             </div>
           ))}
         </div>

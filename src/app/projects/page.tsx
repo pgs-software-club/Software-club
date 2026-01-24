@@ -1,7 +1,8 @@
 import { getOrgRepos } from "@/lib/github";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Github, Code, Users, Star, ExternalLink, GitBranch } from "lucide-react";
+import { Code, Users, Star, ExternalLink, GitBranch } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 
 // Configure the route to be dynamic since we're fetching external data
@@ -81,7 +82,7 @@ export default async function ProjectsPage() {
 
         {repos.length === 0 && (
           <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
-            <Github className="mb-4 h-12 w-12 text-muted-foreground" />
+            <FaGithub className="mb-4 h-12 w-12 text-muted-foreground" />
             <h3 className="text-xl font-medium">No projects found</h3>
             <p className="text-muted-foreground">The organization doesn't have any public repositories yet.</p>
           </div>
