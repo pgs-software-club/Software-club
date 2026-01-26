@@ -85,30 +85,28 @@ export default async function Home() {
       Why Join PGS Software Club?
     </h2>
     <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
-      In the AI era, software is no longer optional—it’s a basic skill.
-      We help you build strong foundations in web, AI, and cybersecurity
-      so you don’t just use technology, you understand and control it.
+     In today's world, software skills are no longer optional. Almost every field now depends on technology, and understanding how software works gives you a real advantage. PGS Software Club exists to help students build strong, practical foundations in programming and development. We focus on teaching what actually matters in the real world, starting from the basics and moving step by step toward real projects.
     </p>
   </div>
 
   <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
     {[
       {
-        title: "Vibe Coding Culture",
+        title: "From Beginner to Builder",
         description:
-          "Code in a pressure-free, creative environment where learning feels natural. Build projects, experiment with ideas, and grow through collaboration—not competition.",
+          "No prior experience is required. We start from the basics and gradually move toward building real projects, helping you develop a strong understanding of how software works.",
         icon: <Users className="h-10 w-10 text-primary" />,
       },
       {
-        title: "AI-Aware Development",
+        title: "Project-Based Learning",
         description:
-          "Learn how AI really works—its power, limitations, and hallucinations. Use AI as a tool, not a crutch, while building real-world web and ML projects.",
+          "Learning happens by doing. You will build websites, work on small projects, debug errors, and gain hands-on experience that builds confidence and real skills.",
         icon: <Code className="h-10 w-10 text-primary" />,
       },
       {
-        title: "Future-Ready Skills",
+        title: "Strong Foundation for the Future",
         description:
-          "Build a strong base in web development, cybersecurity, AI/ML, and modern tech stacks. Because in the AI-driven world, websites and software are essential—not optional.",
+          "The skills you learn here form a solid base for careers in web development, AI/ML, cybersecurity, freelancing, startups, and more.",
         icon: <Zap className="h-10 w-10 text-primary" />,
       },
     ].map((feature, i) => (
