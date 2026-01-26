@@ -20,7 +20,7 @@ export default async function Home() {
     { name: "Sairash Gautam", role: "President", avatar: "https://github.com/sairash.png" },
     { name: "Sagar Shrestha", role: "Vice President", avatar: "https://github.com/Chief-spartan-117.png" },
     { name: "Lagzen Thakuri", role: "Acting President", avatar: "https://github.com/lagzenthakuri.png" },
-    { name: "Manash Hada", role: "Assistant of President", avatar: "https://github.com/hadeyghoptey.png" },
+    { name: "Manash Hada", role: "Executive", avatar: "https://github.com/hadeyghoptey.png" },
   ];
 
   return (
