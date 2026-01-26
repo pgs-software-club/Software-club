@@ -27,6 +27,11 @@ export function Navbar() {
     <nav className="fixed top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 md:bg-background/80 md:backdrop-blur-md md:supports-[backdrop-filter]:bg-background/60 max-md:mobile-navbar-blur">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
+          <img 
+            src="/logo.png" 
+            alt="PGS Software Club Logo" 
+            className="h-8 w-8 object-contain"
+          />
           <span className="text-xl font-bold tracking-tighter text-primary">PGS</span>
           <span className="text-xl font-bold tracking-tighter">Software Club</span>
         </Link>

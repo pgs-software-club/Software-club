@@ -201,11 +201,11 @@ export default async function Home() {
             Join the PGS Software Club today and start your journey into professional software development.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button size="lg" variant="secondary" className="h-12 px-8 bg-white text-primary hover:bg-white/90">
-             <Link href="https://forms.gle/iRT8FjiF3dGmJNmE8" target="_blank_"> Join The Club</Link>
+            <Button size="lg" variant="secondary" className="h-12 px-8 bg-white text-primary hover:bg-white/90" asChild>
+              <Link href="https://forms.gle/iRT8FjiF3dGmJNmE8" target="_blank">Join The Club</Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-12 px-8 border-white/20 text-white hover:bg-white/10 hover:text-white">
-              Contact Us
+            <Button size="lg" variant="outline" className="h-12 px-8 border-white/20 text-white hover:bg-white/10 hover:text-white" asChild>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=thakurizen2@gmail.com" target="_blank" rel="noopener noreferrer">Contact Us</a>
             </Button>
           </div>
         </div>
