@@ -13,7 +13,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { name, email, studentId, phone, course, year } = await request.json();
+    const { name, email, githubUsername, studentId, phone, course, year, areaOfStudy } = await request.json();
     const { id } = await params;
 
     if (!name) {
@@ -39,10 +39,12 @@ export async function PUT(
       { 
         name: name.trim(),
         email: email ? email.trim() : undefined,
+        githubUsername: githubUsername ? githubUsername.trim() : undefined,
         studentId: studentId && studentId.trim() ? studentId.trim() : undefined,
         phone: phone ? phone.trim() : undefined,
         course: course ? course.trim() : undefined,
         year: year ? year.trim() : undefined,
+        areaOfStudy: areaOfStudy ? areaOfStudy.trim() : undefined,
       },
       { new: true, runValidators: true }
     );

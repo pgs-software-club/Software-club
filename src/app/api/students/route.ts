@@ -11,7 +11,17 @@ export async function GET(request: NextRequest) {
     }
 
     await connectDB();
-    const students = await Student.find({ isActive: true }).sort({ createdAt: -1 });
+    
+    // Get query parameter to determine if we want all students or just verified ones
+    const { searchParams } = new URL(request.url);
+    const includeUnverified = searchParams.get('includeUnverified') === 'true';
+    
+    const query = { isActive: true };
+    if (!includeUnverified) {
+      query.isVerified = true;
+    }
+    
+    const students = await Student.find(query).sort({ createdAt: -1 });
     
     return NextResponse.json({ students }, { status: 200 });
   } catch (error) {
@@ -53,6 +63,8 @@ export async function POST(request: NextRequest) {
       phone: phone ? phone.trim() : undefined,
       course: course ? course.trim() : undefined,
       year: year ? year.trim() : undefined,
+      isVerified: true, // Admin-created students are automatically verified
+      registrationType: 'admin',
     });
 
     await student.save();

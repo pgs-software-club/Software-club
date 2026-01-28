@@ -12,6 +12,11 @@ const StudentSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
   },
+  githubUsername: {
+    type: String,
+    required: false,
+    trim: true,
+  },
   studentId: {
     type: String,
     required: false,
@@ -31,9 +36,23 @@ const StudentSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  areaOfStudy: {
+    type: String,
+    required: false,
+    trim: true,
+  },
   isActive: {
     type: Boolean,
     default: true,
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  registrationType: {
+    type: String,
+    enum: ['admin', 'self'],
+    default: 'admin',
   },
 }, {
   timestamps: true,
