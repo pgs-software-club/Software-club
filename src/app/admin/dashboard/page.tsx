@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Users, Calendar, UserPlus, LogOut, BarChart3 } from 'lucide-react';
+import { Users, Calendar, UserPlus, LogOut, BarChart3, Trophy } from 'lucide-react';
 
 interface DashboardStats {
   totalStudents: number;
@@ -176,7 +176,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/admin/students')}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -227,6 +227,24 @@ export default function AdminDashboard() {
               <Button className="w-full">
                 <BarChart3 className="h-4 w-4 mr-2" />
                 View Reports
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/admin/performance')}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Trophy className="h-5 w-5 text-yellow-500" />
+                Performance
+              </CardTitle>
+              <CardDescription>
+                View student leaderboard and rankings
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button className="w-full">
+                <Trophy className="h-4 w-4 mr-2" />
+                View Leaderboard
               </Button>
             </CardContent>
           </Card>

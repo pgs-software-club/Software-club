@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ArrowLeft, UserPlus, CheckCircle } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { ArrowLeft, CheckCircle } from 'lucide-react';
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -17,6 +18,9 @@ export default function RegisterPage() {
     githubUsername: '',
     year: '',
     areaOfStudy: '',
+    viberNumber: '',
+    technicalInterests: [] as string[],
+    otherInterest: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -29,8 +33,8 @@ export default function RegisterPage() {
     setLoading(true);
 
     // Basic validation
-    if (!formData.name || !formData.email || !formData.githubUsername || !formData.year || !formData.areaOfStudy) {
-      setError('All fields are required');
+    if (!formData.name || !formData.email || !formData.githubUsername || !formData.year || !formData.areaOfStudy || formData.technicalInterests.length === 0) {
+      setError('All required fields must be filled, including at least one technical interest');
       setLoading(false);
       return;
     }
@@ -42,6 +46,8 @@ export default function RegisterPage() {
       setLoading(false);
       return;
     }
+
+
 
     // GitHub username validation (basic)
     if (formData.githubUsername.includes(' ') || formData.githubUsername.includes('@')) {
@@ -69,6 +75,9 @@ export default function RegisterPage() {
           githubUsername: '',
           year: '',
           areaOfStudy: '',
+          viberNumber: '',
+          technicalInterests: [],
+          otherInterest: '',
         });
       } else {
         setError(data.error || 'Registration failed');
@@ -108,25 +117,23 @@ export default function RegisterPage() {
       <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => router.push('/')}
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
-              </Button>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">Student Registration</h1>
-                <p className="text-sm text-muted-foreground">Register to join our community</p>
-              </div>
-            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => router.push('/')}
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Home
+            </Button>
           </div>
         </div>
       </header>
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center mb-6">
+          <h1 className="text-3xl font-bold text-foreground mb-2">Student Registration</h1>
+          <p className="text-muted-foreground">Register to join our community</p>
+        </div>
         {error && (
           <Alert variant="destructive" className="mb-6">
             <AlertDescription>{error}</AlertDescription>
@@ -199,6 +206,66 @@ export default function RegisterPage() {
                     <SelectItem value="BBA">Bachelor of Business Administration (BBA)</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="viberNumber">Contact Number</Label>
+                <Input
+                  id="viberNumber"
+                  type="tel"
+                  placeholder="+977 9800000000"
+                  value={formData.viberNumber}
+                  onChange={(e) => setFormData({ ...formData, viberNumber: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Technical Interests * (Select all that apply)</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 border rounded-md">
+                  {[
+                    'Web Development',
+                    'Cybersecurity',
+                    'AI / ML',
+                    'Mobile Development',
+                    'DevOps',
+                    'UI/UX',
+                    'Other'
+                  ].map((interest) => (
+                    <div key={interest} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={interest}
+                        checked={formData.technicalInterests.includes(interest)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            setFormData({
+                              ...formData,
+                              technicalInterests: [...formData.technicalInterests, interest]
+                            });
+                          } else {
+                            setFormData({
+                              ...formData,
+                              technicalInterests: formData.technicalInterests.filter(i => i !== interest)
+                            });
+                          }
+                        }}
+                      />
+                      <Label htmlFor={interest} className="text-sm font-normal cursor-pointer">
+                        {interest}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+                {formData.technicalInterests.includes('Other') && (
+                  <Input
+                    placeholder="Please specify your other technical interests"
+                    value={formData.otherInterest}
+                    onChange={(e) => setFormData({ ...formData, otherInterest: e.target.value })}
+                    className="mt-2"
+                  />
+                )}
+                <p className="text-sm text-muted-foreground">
+                  This helps us organize structured projects and match you with relevant opportunities
+                </p>
               </div>
 
               <Button type="submit" className="w-full" disabled={loading}>

@@ -19,7 +19,7 @@ export interface Contributor {
 }
 
 const ORG_NAME = 'pgs-software-club';
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 // Cache for 5 minutes (300 seconds) to balance freshness with performance
 const REVALIDATE_TIME = 300;
 
@@ -82,7 +82,7 @@ const getHeaders = () => {
   };
   
   if (GITHUB_TOKEN) {
-    console.log('GitHub Token found, using it for requests');
+    // GitHub token available for authenticated requests
     headers['Authorization'] = `token ${GITHUB_TOKEN}`;
   } else {
     console.warn('No GITHUB_TOKEN found in environment variables');

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Student from '@/models/Student';
-import { verifyAdminToken } from '@/lib/middleware';
+import { verifyAdminToken, validateEmail, validateGithubUsername, validateStudentId, sanitizeInput } from '@/lib/middleware';
+import { validateCSRFToken } from '@/lib/auth';
 
 export async function PUT(
   request: NextRequest,
@@ -13,21 +14,103 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // CSRF protection
+    const csrfToken = request.headers.get('x-csrf-token');
+    if (!csrfToken || !validateCSRFToken(csrfToken)) {
+      return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
+    }
+
     const { name, email, githubUsername, studentId, phone, course, year, areaOfStudy } = await request.json();
     const { id } = await params;
 
-    if (!name) {
-      return NextResponse.json({ error: 'Name is required' }, { status: 400 });
+    // Validate MongoDB ObjectId format
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return NextResponse.json({ error: 'Invalid student ID format' }, { status: 400 });
+    }
+
+    // Input validation
+    if (!name || name.trim().length < 2) {
+      return NextResponse.json({ error: 'Name is required and must be at least 2 characters' }, { status: 400 });
+    }
+
+    // Sanitize inputs
+    const sanitizedData: any = {
+      name: sanitizeInput(name, 100),
+      modifiedBy: admin.email
+    };
+
+    if (email) {
+      const sanitizedEmail = sanitizeInput(email.toLowerCase(), 254);
+      if (!validateEmail(sanitizedEmail)) {
+        return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
+      }
+      sanitizedData.email = sanitizedEmail;
+    }
+
+    if (githubUsername) {
+      const sanitizedGithub = sanitizeInput(githubUsername, 39);
+      if (!validateGithubUsername(sanitizedGithub)) {
+        return NextResponse.json({ error: 'Invalid GitHub username format' }, { status: 400 });
+      }
+      sanitizedData.githubUsername = sanitizedGithub;
+    }
+
+    if (studentId) {
+      const sanitizedStudentId = sanitizeInput(studentId, 20);
+      if (!validateStudentId(sanitizedStudentId)) {
+        return NextResponse.json({ error: 'Invalid student ID format' }, { status: 400 });
+      }
+      sanitizedData.studentId = sanitizedStudentId;
+    }
+
+    if (phone) {
+      sanitizedData.phone = sanitizeInput(phone, 20);
+    }
+
+    if (course) {
+      sanitizedData.course = sanitizeInput(course, 100);
+    }
+
+    if (year) {
+      sanitizedData.year = sanitizeInput(year, 20);
+    }
+
+    if (areaOfStudy) {
+      sanitizedData.areaOfStudy = sanitizeInput(areaOfStudy, 100);
     }
 
     await connectDB();
     
-    // Check if studentId already exists (only if provided and different from current)
-    if (studentId && studentId.trim()) {
-      const existingStudent = await Student.findOne({ 
-        studentId: studentId.trim(), 
+    // Check for duplicate email (if provided)
+    if (sanitizedData.email) {
+      const existingEmailStudent = await Student.findOne({ 
+        email: sanitizedData.email,
         isActive: true,
-        _id: { $ne: id } // Exclude current student from check
+        _id: { $ne: id }
+      });
+      if (existingEmailStudent) {
+        return NextResponse.json({ error: 'Email already exists' }, { status: 400 });
+      }
+    }
+
+    // Check for duplicate GitHub username (if provided)
+    if (sanitizedData.githubUsername) {
+      const existingGithubStudent = await Student.findOne({ 
+        githubUsername: { $regex: new RegExp(`^${sanitizedData.githubUsername}$`, 'i') },
+        isActive: true,
+        _id: { $ne: id }
+      });
+      if (existingGithubStudent) {
+        return NextResponse.json({ error: 'GitHub username already exists' }, { status: 400 });
+      }
+    }
+    
+    // Check for duplicate student ID (if provided)
+    if (sanitizedData.studentId) {
+      const existingStudent = await Student.findOne({ 
+        studentId: sanitizedData.studentId, 
+        isActive: true,
+        _id: { $ne: id }
       });
       if (existingStudent) {
         return NextResponse.json({ error: 'Student ID already exists' }, { status: 400 });
@@ -36,18 +119,9 @@ export async function PUT(
     
     const student = await Student.findByIdAndUpdate(
       id,
-      { 
-        name: name.trim(),
-        email: email ? email.trim() : undefined,
-        githubUsername: githubUsername ? githubUsername.trim() : undefined,
-        studentId: studentId && studentId.trim() ? studentId.trim() : undefined,
-        phone: phone ? phone.trim() : undefined,
-        course: course ? course.trim() : undefined,
-        year: year ? year.trim() : undefined,
-        areaOfStudy: areaOfStudy ? areaOfStudy.trim() : undefined,
-      },
+      sanitizedData,
       { new: true, runValidators: true }
-    );
+    ).select('-registrationIP -__v');
 
     if (!student) {
       return NextResponse.json({ error: 'Student not found' }, { status: 404 });
@@ -58,9 +132,9 @@ export async function PUT(
     console.error('Update student error:', error);
     
     if (error.code === 11000) {
-      const field = Object.keys(error.keyPattern)[0];
+      const field = Object.keys(error.keyPattern || {})[0];
       return NextResponse.json({ 
-        error: `${field === 'studentId' ? 'Student ID' : field} already exists` 
+        error: `${field === 'studentId' ? 'Student ID' : field === 'githubUsername' ? 'GitHub username' : field} already exists` 
       }, { status: 400 });
     }
     
@@ -78,14 +152,28 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // CSRF protection
+    const csrfToken = request.headers.get('x-csrf-token');
+    if (!csrfToken || !validateCSRFToken(csrfToken)) {
+      return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
+    }
+
     const { id } = await params;
+
+    // Validate MongoDB ObjectId format
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return NextResponse.json({ error: 'Invalid student ID format' }, { status: 400 });
+    }
 
     await connectDB();
     
     // Soft delete - mark as inactive instead of removing
     const student = await Student.findByIdAndUpdate(
       id,
-      { isActive: false },
+      { 
+        isActive: false,
+        modifiedBy: admin.email
+      },
       { new: true }
     );
 

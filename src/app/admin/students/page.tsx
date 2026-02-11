@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Checkbox } from '@/components/ui/checkbox';
 import { UserPlus, Edit, Trash2, ArrowLeft, Search, CheckCircle, XCircle, Clock, Users, UserCheck } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -17,12 +18,16 @@ interface Student {
   _id: string;
   name: string;
   email?: string;
+  personalEmail?: string;
   githubUsername?: string;
   studentId?: string;
   phone?: string;
   course?: string;
   year?: string;
   areaOfStudy?: string;
+  viberNumber?: string;
+  technicalInterests?: string[];
+  otherInterest?: string;
   isVerified: boolean;
   registrationType: 'admin' | 'self';
   createdAt: string;
@@ -42,6 +47,7 @@ export default function StudentsPage() {
   const [editingStudent, setEditingStudent] = useState<Student | null>(null);
   const [verifyingStudent, setVerifyingStudent] = useState<Student | null>(null);
   const [assignStudentId, setAssignStudentId] = useState('');
+  const [csrfToken, setCsrfToken] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -51,6 +57,9 @@ export default function StudentsPage() {
     course: '',
     year: '',
     areaOfStudy: '',
+    viberNumber: '',
+    technicalInterests: [] as string[],
+    otherInterest: '',
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -58,6 +67,7 @@ export default function StudentsPage() {
 
   useEffect(() => {
     checkAuth();
+    fetchCSRFToken();
     fetchStudents();
     fetchPendingStudents();
   }, []);
@@ -83,6 +93,26 @@ export default function StudentsPage() {
     const token = localStorage.getItem('admin-token');
     if (!token) {
       router.push('/admin/login');
+    }
+  };
+
+  const fetchCSRFToken = async () => {
+    try {
+      const token = localStorage.getItem('admin-token');
+      const response = await fetch('/api/auth/csrf', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setCsrfToken(data.csrfToken);
+      } else if (response.status === 401) {
+        router.push('/admin/login');
+      }
+    } catch (error) {
+      console.error('Error fetching CSRF token:', error);
     }
   };
 
@@ -154,7 +184,16 @@ export default function StudentsPage() {
 
       if (response.ok) {
         setSuccess(data.message);
-        setFormData({ name: '', email: '', studentId: '', phone: '', course: '', year: '' });
+        setFormData({ 
+          name: '', 
+          email: '', 
+          githubUsername: '',
+          studentId: '', 
+          phone: '', 
+          course: '', 
+          year: '',
+          areaOfStudy: ''
+        });
         setIsAddDialogOpen(false);
         setIsEditDialogOpen(false);
         setEditingStudent(null);
@@ -174,12 +213,27 @@ export default function StudentsPage() {
     setSuccess('');
 
     try {
+      // Fetch a fresh CSRF token before the operation
       const token = localStorage.getItem('admin-token');
+      const csrfResponse = await fetch('/api/auth/csrf', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!csrfResponse.ok) {
+        setError('Failed to get security token. Please try again.');
+        return;
+      }
+
+      const { csrfToken: freshCsrfToken } = await csrfResponse.json();
+
       const response = await fetch('/api/students/verify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
+          'x-csrf-token': freshCsrfToken,
         },
         body: JSON.stringify({
           studentId: verifyingStudent._id,
@@ -197,6 +251,8 @@ export default function StudentsPage() {
         setAssignStudentId('');
         fetchStudents();
         fetchPendingStudents();
+        // Refresh CSRF token for next operation
+        fetchCSRFToken();
       } else {
         setError(data.error);
       }
@@ -221,6 +277,9 @@ export default function StudentsPage() {
       course: student.course || '',
       year: student.year || '',
       areaOfStudy: student.areaOfStudy || '',
+      viberNumber: student.viberNumber || '',
+      technicalInterests: student.technicalInterests || [],
+      otherInterest: student.otherInterest || '',
     });
     setIsEditDialogOpen(true);
   };
@@ -231,11 +290,26 @@ export default function StudentsPage() {
     }
 
     try {
+      // Fetch a fresh CSRF token before the operation
       const token = localStorage.getItem('admin-token');
+      const csrfResponse = await fetch('/api/auth/csrf', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!csrfResponse.ok) {
+        setError('Failed to get security token. Please try again.');
+        return;
+      }
+
+      const { csrfToken: freshCsrfToken } = await csrfResponse.json();
+
       const response = await fetch(`/api/students/${studentId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
+          'x-csrf-token': freshCsrfToken,
         },
       });
 
@@ -244,6 +318,8 @@ export default function StudentsPage() {
       if (response.ok) {
         setSuccess(data.message);
         fetchStudents();
+        // Refresh CSRF token for next operation
+        fetchCSRFToken();
       } else {
         setError(data.error);
       }
@@ -253,7 +329,19 @@ export default function StudentsPage() {
   };
 
   const resetForm = () => {
-    setFormData({ name: '', email: '', githubUsername: '', studentId: '', phone: '', course: '', year: '', areaOfStudy: '' });
+    setFormData({ 
+      name: '', 
+      email: '', 
+      githubUsername: '', 
+      studentId: '', 
+      phone: '', 
+      course: '', 
+      year: '', 
+      areaOfStudy: '',
+      viberNumber: '',
+      technicalInterests: [],
+      otherInterest: '',
+    });
     setEditingStudent(null);
     setError('');
     setSuccess('');
@@ -420,6 +508,61 @@ export default function StudentsPage() {
                           onChange={(e) => setFormData({ ...formData, areaOfStudy: e.target.value })}
                         />
                       </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="viberNumber">Viber Number</Label>
+                      <Input
+                        id="viberNumber"
+                        type="tel"
+                        placeholder="+977 9800000000"
+                        value={formData.viberNumber}
+                        onChange={(e) => setFormData({ ...formData, viberNumber: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Technical Interests</Label>
+                      <div className="grid grid-cols-2 gap-3 p-4 border rounded-md">
+                        {[
+                          'Web Development',
+                          'Cybersecurity',
+                          'AI / ML',
+                          'Mobile Development',
+                          'DevOps',
+                          'UI/UX',
+                          'Other'
+                        ].map((interest) => (
+                          <div key={interest} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`add-${interest}`}
+                              checked={formData.technicalInterests.includes(interest)}
+                              onCheckedChange={(checked) => {
+                                if (checked) {
+                                  setFormData({
+                                    ...formData,
+                                    technicalInterests: [...formData.technicalInterests, interest]
+                                  });
+                                } else {
+                                  setFormData({
+                                    ...formData,
+                                    technicalInterests: formData.technicalInterests.filter(i => i !== interest)
+                                  });
+                                }
+                              }}
+                            />
+                            <Label htmlFor={`add-${interest}`} className="text-sm font-normal cursor-pointer">
+                              {interest}
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
+                      {formData.technicalInterests.includes('Other') && (
+                        <Input
+                          placeholder="Please specify other technical interests"
+                          value={formData.otherInterest}
+                          onChange={(e) => setFormData({ ...formData, otherInterest: e.target.value })}
+                          className="mt-2"
+                        />
+                      )}
                     </div>
                     <Button type="submit" className="w-full">
                       Add Student
@@ -685,6 +828,61 @@ export default function StudentsPage() {
                   />
                 </div>
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="edit-viberNumber">Viber Number</Label>
+                <Input
+                  id="edit-viberNumber"
+                  type="tel"
+                  placeholder="+977 9800000000"
+                  value={formData.viberNumber}
+                  onChange={(e) => setFormData({ ...formData, viberNumber: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Technical Interests</Label>
+                <div className="grid grid-cols-2 gap-3 p-4 border rounded-md">
+                  {[
+                    'Web Development',
+                    'Cybersecurity',
+                    'AI / ML',
+                    'Mobile Development',
+                    'DevOps',
+                    'UI/UX',
+                    'Other'
+                  ].map((interest) => (
+                    <div key={interest} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`edit-${interest}`}
+                        checked={formData.technicalInterests.includes(interest)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            setFormData({
+                              ...formData,
+                              technicalInterests: [...formData.technicalInterests, interest]
+                            });
+                          } else {
+                            setFormData({
+                              ...formData,
+                              technicalInterests: formData.technicalInterests.filter(i => i !== interest)
+                            });
+                          }
+                        }}
+                      />
+                      <Label htmlFor={`edit-${interest}`} className="text-sm font-normal cursor-pointer">
+                        {interest}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+                {formData.technicalInterests.includes('Other') && (
+                  <Input
+                    placeholder="Please specify other technical interests"
+                    value={formData.otherInterest}
+                    onChange={(e) => setFormData({ ...formData, otherInterest: e.target.value })}
+                    className="mt-2"
+                  />
+                )}
+              </div>
               <Button type="submit" className="w-full">
                 Update Student
               </Button>
@@ -733,6 +931,25 @@ export default function StudentsPage() {
                     <Label className="text-sm font-medium">Area of Study</Label>
                     <p className="text-sm">{verifyingStudent.areaOfStudy}</p>
                   </div>
+                  {verifyingStudent.viberNumber && (
+                    <div>
+                      <Label className="text-sm font-medium">Viber Number</Label>
+                      <p className="text-sm">{verifyingStudent.viberNumber}</p>
+                    </div>
+                  )}
+                  {verifyingStudent.technicalInterests && verifyingStudent.technicalInterests.length > 0 && (
+                    <div className="sm:col-span-2">
+                      <Label className="text-sm font-medium">Technical Interests</Label>
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        {verifyingStudent.technicalInterests.filter(i => i !== 'Other').map((interest, index) => (
+                          <Badge key={index} variant="outline" className="border-0">{interest}</Badge>
+                        ))}
+                        {verifyingStudent.otherInterest && (
+                          <Badge variant="outline" className="border-0">{verifyingStudent.otherInterest}</Badge>
+                        )}
+                      </div>
+                    </div>
+                  )}
                   <div className="sm:col-span-2">
                     <Label className="text-sm font-medium">Registration Date</Label>
                     <p className="text-sm">{new Date(verifyingStudent.createdAt).toLocaleString()}</p>

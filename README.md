@@ -1,4 +1,4 @@
-# Student Management System
+# PGS Software Student Management System
 
 A comprehensive admin system for managing students and tracking attendance, built with Next.js, MongoDB, and JWT authentication.
 
@@ -10,6 +10,7 @@ A comprehensive admin system for managing students and tracking attendance, buil
 - **Attendance Tracking**: Mark daily attendance with status (Present, Absent, Late)
 - **Attendance History**: View and filter attendance records with export functionality
 - **Dashboard**: Overview of student statistics and attendance metrics
+- **Performance Leaderboard**: View student rankings based on attendance scores
 
 ### Public Features
 - **Members Page**: Display all active students with their information
@@ -83,6 +84,20 @@ After logging in, you'll have access to:
 - **Student Management**: Add, edit, and remove students
 - **Take Attendance**: Mark attendance for any date
 - **Reports**: View attendance history and export data
+- **Performance Leaderboard**: View student rankings and performance metrics
+
+### Performance Leaderboard
+The Performance Leaderboard ranks students based on their attendance scores:
+- **Scoring System**:
+  - Present = 1 point
+  - Late = 0.5 points
+  - Absent = 0 points
+- **Features**:
+  - Top 3 students highlighted with special badges
+  - Visual chart showing top 10 performers
+  - Complete leaderboard table with detailed statistics
+  - Real-time attendance percentage calculations
+- **Access**: Navigate to `/admin/performance` or click "Performance" from the dashboard
 
 ### Student Display
 - Visit `/members` to see all active students
@@ -92,18 +107,98 @@ After logging in, you'll have access to:
 
 ### Authentication
 - `POST /api/auth/login` - Admin login
+  - **Request**: `{ email: string, password: string }`
+  - **Response**: `{ token: string, message: string }`
+  - **Status**: 200 (success), 401 (invalid credentials), 400 (validation error)
+
 - `POST /api/auth/logout` - Admin logout
+  - **Response**: `{ message: string }`
+  - **Status**: 200 (success)
+
+- `GET /api/auth/csrf` - Get CSRF token
+  - **Headers**: `Authorization: Bearer <token>`
+  - **Response**: `{ csrfToken: string }`
+  - **Status**: 200 (success), 401 (unauthorized)
 
 ### Students
 - `GET /api/students` - Get all active students
-- `POST /api/students` - Create new student
+  - **Headers**: `Authorization: Bearer <token>`
+  - **Query Params**: `page`, `limit`, `search`, `includeUnverified`
+  - **Response**: `{ students: Student[], pagination: {...} }`
+  - **Status**: 200 (success), 401 (unauthorized)
+
+- `POST /api/students` - Create new student (admin-created)
+  - **Headers**: `Authorization: Bearer <token>`, `x-csrf-token: <csrf>`
+  - **Request**: `{ name, email, studentId, ... }`
+  - **Response**: `{ student: Student, message: string }`
+  - **Status**: 201 (created), 400 (validation error), 401 (unauthorized)
+
 - `PUT /api/students/[id]` - Update student
+  - **Headers**: `Authorization: Bearer <token>`, `x-csrf-token: <csrf>`
+  - **Request**: `{ name, email, studentId, ... }`
+  - **Response**: `{ student: Student, message: string }`
+  - **Status**: 200 (success), 400 (validation error), 404 (not found)
+
 - `DELETE /api/students/[id]` - Soft delete student
+  - **Headers**: `Authorization: Bearer <token>`, `x-csrf-token: <csrf>`
+  - **Response**: `{ message: string }`
+  - **Status**: 200 (success), 404 (not found), 401 (unauthorized)
+
+- `GET /api/students/next-id` - Get next available student ID
+  - **Headers**: `Authorization: Bearer <token>`
+  - **Response**: `{ nextId: string }`
+  - **Status**: 200 (success), 401 (unauthorized)
+
+- `POST /api/students/verify` - Approve or reject student registration
+  - **Headers**: `Authorization: Bearer <token>`, `x-csrf-token: <csrf>`
+  - **Request**: `{ studentId: string, action: 'approve' | 'reject', studentIdToAssign?: string }`
+  - **Response**: `{ message: string }`
+  - **Status**: 200 (success), 400 (validation error), 404 (not found)
 
 ### Attendance
 - `GET /api/attendance` - Get attendance records (with filters)
+  - **Headers**: `Authorization: Bearer <token>`
+  - **Query Params**: `date`, `studentId`, `page`, `limit`
+  - **Response**: `{ attendance: Attendance[], pagination: {...} }`
+  - **Status**: 200 (success), 401 (unauthorized)
+
 - `POST /api/attendance` - Record single attendance
+  - **Headers**: `Authorization: Bearer <token>`, `x-csrf-token: <csrf>`
+  - **Request**: `{ studentId: string, date: string, status: 'present' | 'late' | 'absent', notes?: string }`
+  - **Response**: `{ attendance: Attendance, message: string }`
+  - **Status**: 201 (created), 400 (validation error), 404 (student not found)
+
 - `POST /api/attendance/bulk` - Record bulk attendance
+  - **Headers**: `Authorization: Bearer <token>`, `x-csrf-token: <csrf>`
+  - **Request**: `{ date: string, attendanceRecords: [{ studentId, status, notes? }] }`
+  - **Response**: `{ successful: number, failed: number, results: [], errors: [] }`
+  - **Status**: 200 (success), 400 (validation error)
+
+### Performance
+- `GET /api/admin/performance` - Get student performance leaderboard
+  - **Headers**: `Authorization: Bearer <token>`
+  - **Response**: 
+    ```json
+    {
+      "leaderboard": [
+        {
+          "_id": "string",
+          "studentId": "string",
+          "studentName": "string",
+          "totalPoints": number,
+          "totalDays": number,
+          "presentCount": number,
+          "lateCount": number,
+          "absentCount": number,
+          "attendancePercentage": number,
+          "rank": number
+        }
+      ],
+      "generatedAt": "ISO 8601 timestamp"
+    }
+    ```
+  - **Status**: 200 (success), 401 (unauthorized), 500 (server error)
+  - **Scoring**: Present = 1 point, Late = 0.5 points, Absent = 0 points
 
 ## Database Schema
 

@@ -25,7 +25,7 @@ interface AttendanceRecord {
     _id: string;
     name: string;
     studentId?: string;
-  };
+  } | null;
   date: string;
   status: 'present' | 'absent' | 'late';
   notes?: string;
@@ -122,7 +122,7 @@ export default function ReportsPage() {
     // Filter by student
     if (filters.studentId && filters.studentId !== 'all') {
       filtered = filtered.filter(record => 
-        record.studentId._id === filters.studentId
+        record.studentId?._id === filters.studentId
       );
     }
 
@@ -173,8 +173,8 @@ export default function ReportsPage() {
       headers.join(','),
       ...filteredRecords.map(record => [
         new Date(record.date).toLocaleDateString(),
-        record.studentId.name,
-        record.studentId.studentId || '',
+        record.studentId?.name || 'Deleted Student',
+        record.studentId?.studentId || '',
         record.status,
         record.notes || ''
       ].map(field => `"${field}"`).join(','))
@@ -387,10 +387,10 @@ export default function ReportsPage() {
                       {new Date(record.date).toLocaleDateString()}
                     </TableCell>
                     <TableCell className="font-medium">
-                      {record.studentId.name}
+                      {record.studentId?.name || <span className="text-muted-foreground italic">Deleted Student</span>}
                     </TableCell>
                     <TableCell>
-                      {record.studentId.studentId ? (
+                      {record.studentId?.studentId ? (
                         <Badge variant="outline">{record.studentId.studentId}</Badge>
                       ) : (
                         <span className="text-muted-foreground">-</span>

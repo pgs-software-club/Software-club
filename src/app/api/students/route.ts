@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Student from '@/models/Student';
 import { verifyAdminToken } from '@/lib/middleware';
+import { validateCSRFToken } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,18 +13,49 @@ export async function GET(request: NextRequest) {
 
     await connectDB();
     
-    // Get query parameter to determine if we want all students or just verified ones
+    // Get query parameters with validation
     const { searchParams } = new URL(request.url);
     const includeUnverified = searchParams.get('includeUnverified') === 'true';
+    const page = Math.max(1, parseInt(searchParams.get('page') || '1'));
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '50')));
+    const search = searchParams.get('search')?.trim();
     
-    const query = { isActive: true };
+    // Build query
+    const query: any = { isActive: true };
     if (!includeUnverified) {
       query.isVerified = true;
     }
     
-    const students = await Student.find(query).sort({ createdAt: -1 });
+    // Add search functionality
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+        { githubUsername: { $regex: search, $options: 'i' } },
+        { studentId: { $regex: search, $options: 'i' } }
+      ];
+    }
     
-    return NextResponse.json({ students }, { status: 200 });
+    // Execute query with pagination
+    const skip = (page - 1) * limit;
+    const [students, total] = await Promise.all([
+      Student.find(query)
+        .select('-registrationIP -__v') // Exclude sensitive fields
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
+      Student.countDocuments(query)
+    ]);
+    
+    return NextResponse.json({ 
+      students,
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit)
+      }
+    }, { status: 200 });
   } catch (error) {
     console.error('Get students error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -37,50 +69,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { name, email, studentId, phone, course, year } = await request.json();
-
-    if (!name) {
-      return NextResponse.json({ error: 'Name is required' }, { status: 400 });
+    // CSRF protection for state-changing operations
+    const csrfToken = request.headers.get('x-csrf-token');
+    if (!csrfToken || !validateCSRFToken(csrfToken)) {
+      return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
     }
 
-    await connectDB();
-    
-    // Check if studentId already exists (only if provided)
-    if (studentId && studentId.trim()) {
-      const existingStudent = await Student.findOne({ 
-        studentId: studentId.trim(), 
-        isActive: true 
-      });
-      if (existingStudent) {
-        return NextResponse.json({ error: 'Student ID already exists' }, { status: 400 });
-      }
-    }
-    
-    const student = new Student({
-      name: name.trim(),
-      email: email ? email.trim() : undefined,
-      studentId: studentId && studentId.trim() ? studentId.trim() : undefined,
-      phone: phone ? phone.trim() : undefined,
-      course: course ? course.trim() : undefined,
-      year: year ? year.trim() : undefined,
-      isVerified: true, // Admin-created students are automatically verified
-      registrationType: 'admin',
-    });
-
-    await student.save();
-    
-    return NextResponse.json({ student, message: 'Student created successfully' }, { status: 201 });
-  } catch (error: any) {
+    // This endpoint is typically not needed as students register themselves
+    // But keeping it for admin-created students
+    return NextResponse.json({ error: 'Use registration endpoint for new students' }, { status: 400 });
+  } catch (error) {
     console.error('Create student error:', error);
-    
-    if (error.code === 11000) {
-      // Handle duplicate key error
-      const field = Object.keys(error.keyPattern)[0];
-      return NextResponse.json({ 
-        error: `${field === 'studentId' ? 'Student ID' : field} already exists` 
-      }, { status: 400 });
-    }
-    
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
