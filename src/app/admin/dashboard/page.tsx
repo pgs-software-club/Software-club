@@ -176,7 +176,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/admin/students')}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -245,6 +245,24 @@ export default function AdminDashboard() {
               <Button className="w-full">
                 <Trophy className="h-4 w-4 mr-2" />
                 View Leaderboard
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow border-primary/50 cursor-pointer" onClick={() => router.push('/admin/sports-week')}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-primary font-bold">
+                <Trophy className="h-5 w-5" />
+                Sports Week
+              </CardTitle>
+              <CardDescription>
+                Dynamic form builder & registration analytics
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button className="w-full bg-primary hover:bg-primary/90">
+                <BarChart3 className="h-4 w-4 mr-2" />
+                Manage Sports
               </Button>
             </CardContent>
           </Card>
