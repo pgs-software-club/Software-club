@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Code, Users, Calendar, ArrowRight, Zap } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import LeadershipTeams from "@/components/LeadershipTeams";
 
 // Configure the route to be dynamic since we're fetching external data
 export const dynamic = 'force-dynamic';
@@ -16,12 +17,7 @@ export default async function Home() {
   const members = await getAllMembers();
   const repos = await getOrgRepos();
 
-  const team = [
-    { name: "Sairash Gautam", role: "President", avatar: "https://github.com/sairash.png" },
-    { name: "Sagar Shrestha", role: "Vice President", avatar: "https://github.com/Chief-spartan-117.png" },
-    { name: "Lagzen Thakuri", role: "Acting President", avatar: "https://github.com/lagzenthakuri.png" },
-    { name: "Manash Hada", role: "Executive", avatar: "https://github.com/hadeyghoptey.png" },
-  ];
+
 
   return (
     <div className="flex flex-col gap-20 pb-20">
@@ -177,18 +173,18 @@ export default async function Home() {
 
       {/* Team Section */}
       <section className="container mx-auto px-4 py-12">
-        <h2 className="mb-12 text-center text-3xl font-bold tracking-tight">Our Leadership</h2>
-        <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-4">
-          {team.map((member) => (
-            <div key={member.name} className="flex flex-col items-center text-center">
-              <div className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-48 lg:w-48 overflow-hidden rounded-2xl border-4 border-primary/10">
-                <img src={member.avatar} alt={member.name} className="h-full w-full object-cover grayscale transition-all hover:grayscale-0" />
-              </div>
-              <h3 className="mt-3 sm:mt-4 lg:mt-6 text-sm sm:text-lg lg:text-xl font-bold">{member.name}</h3>
-              <p className="text-xs sm:text-sm font-medium text-primary uppercase tracking-wider">{member.role}</p>
-            </div>
-          ))}
+        <div className="mb-16 text-center">
+          <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
+            Our Committee
+          </Badge>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">
+            Meet Our Leadership & Teams
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            The dedicated team of students guiding, branding, engaging, and building the PGS Software Club.
+          </p>
         </div>
+        <LeadershipTeams />
       </section>
 
       {/* CTA Section */}
@@ -200,9 +196,9 @@ export default async function Home() {
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button size="lg" variant="secondary" className="h-12 px-8 bg-white text-primary hover:bg-white/90" asChild>
-              <Link href="https://forms.gle/iRT8FjiF3dGmJNmE8" target="_blank">Join The Club</Link>
+              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSea8AZoPk8HVKVLsiVx_tYIEtIGC_gOUJKL_XsZDgxDoKzuUg/viewform" target="_blank">Join The Club</Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-12 px-8 border-white/20 text-white hover:bg-white/10 hover:text-white" asChild>
+            <Button size="lg" variant="ghost" className="h-12 px-8 border border-white/30 text-white hover:bg-white/10 hover:text-white hover:border-white/50 bg-transparent" asChild>
               <a href="https://mail.google.com/mail/?view=cm&fs=1&to=thakurizen2@gmail.com" target="_blank" rel="noopener noreferrer">Contact Us</a>
             </Button>
           </div>

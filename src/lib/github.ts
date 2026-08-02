@@ -57,21 +57,48 @@ const MOCK_REPOS: Repository[] = [
 const MOCK_MEMBERS: Contributor[] = [
   {
     id: 1,
-    login: "sairashgautam",
-    name: "Sairash Gautam",
-    avatar_url: "https://github.com/sairash",
-    html_url: "https://github.com/sairash",
-    contributions: 45,
-    bio: "President @ PGS Software Club | Full Stack Developer"
+    login: "lagzenthakuri",
+    name: "Lagzen Thakuri",
+    avatar_url: "https://github.com/lagzenthakuri.png",
+    html_url: "https://github.com/lagzenthakuri",
+    contributions: 100,
+    bio: "Lead / President @ PGS Software Club"
   },
   {
     id: 2,
-    login: "lagzen",
-    name: "lagzen Thakuri",
-    avatar_url: "https://github.com/lagzenthakuri",
-    html_url: "https://github.com/lagzenthakuri",
-    contributions: 100,
-    bio: "Empowering next-gen software innovators."
+    login: "ishantdidit",
+    name: "Ishant Dahal",
+    avatar_url: "https://github.com/ishantdidit.png",
+    html_url: "https://github.com/ishantdidit",
+    contributions: 85,
+    bio: "Technical Lead @ PGS Software Club"
+  },
+  {
+    id: 3,
+    login: "sairash",
+    name: "Sairash Gautam",
+    avatar_url: "https://github.com/sairash.png",
+    html_url: "https://github.com/sairash",
+    contributions: 45,
+    bio: "Former President | Advisor @ PGS Software Club"
+  },
+  {
+    id: 4,
+    login: "Chief-spartan-117",
+    name: "Sagar Shrestha",
+    avatar_url: "https://github.com/Chief-spartan-117.png",
+    html_url: "https://github.com/Chief-spartan-117",
+    contributions: 40,
+    bio: "Former Vice President | Advisor @ PGS Software Club"
+  },
+  {
+    id: 5,
+    login: "hadeyghoptey",
+    name: "Manash Hada",
+    avatar_url: "https://github.com/hadeyghoptey.png",
+    html_url: "https://github.com/hadeyghoptey",
+    contributions: 80,
+    bio: "Core Member @ PGS Software Club"
   }
 ];
 

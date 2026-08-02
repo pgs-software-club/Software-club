@@ -16,7 +16,7 @@ export default async function ProjectsPage() {
   return (
     <div className="container mx-auto px-4 py-24">
       <div className="mb-16 text-center">
-        <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
+        <Badge variant="outline" className="mb-4 borderclear-primary/20 bg-primary/5 text-primary">
           Our Portfolio
         </Badge>
         <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
