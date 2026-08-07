@@ -117,7 +117,7 @@ export default function LeadershipTeams() {
     return (
       <Card
         key={member.name}
-        className="group relative overflow-hidden border border-muted transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 bg-card"
+        className="group lift relative h-full overflow-hidden border border-muted hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5"
       >
         <div className="absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r from-primary via-purple-500 to-indigo-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         

@@ -135,7 +135,7 @@ function RegistrationForm() {
     };
 
     if (loading) return (
-        <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-[#F8F9FA]">
+        <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-[#F8F9FA] dark:bg-zinc-950">
             <div className="absolute top-0 left-0 w-full h-2 bg-[#2E3192]" />
             <div className="absolute top-2 left-0 w-full h-1 bg-[#BE1E2D]" />
             <Loader2 className="h-12 w-12 animate-spin text-[#2E3192] mb-4" />
@@ -144,7 +144,7 @@ function RegistrationForm() {
     );
 
     if (!form) return (
-        <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-[#F8F9FA]">
+        <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-[#F8F9FA] dark:bg-zinc-950">
             <div className="absolute top-0 left-0 w-full h-2 bg-[#2E3192]" />
             <div className="absolute top-2 left-0 w-full h-1 bg-[#BE1E2D]" />
             <AlertCircle className="h-16 w-16 text-[#BE1E2D] mb-4" />

@@ -1,9 +1,16 @@
 "use client"
 
-import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Reveal } from "@/components/Reveal";
 import { ExternalLink, BookOpen, Video, Globe, Terminal } from "lucide-react";
+
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 
 const resources = [
   {
@@ -108,43 +115,71 @@ const resources = [
 ];
 
 export default function ResourcesPage() {
+  const totalItems = resources.reduce((sum, section) => sum + section.items.length, 0);
+
   return (
-    <div className="container mx-auto px-4 py-20">
-      <div className="mb-16 text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">Learning <span className="text-primary">Resources</span></h1>
-        <p className="mt-4 text-lg text-muted-foreground">Structured learning path from zero to job-ready software engineer.</p>
+    <div className="container mx-auto px-4 py-24">
+      <div className="mb-16 text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <Badge variant="outline" className="mb-5 border-primary/20 bg-primary/5 text-primary backdrop-blur-sm">
+          Learning Hub
+        </Badge>
+        <h1 className="text-balance text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+          Learning <span className="text-gradient">Resources</span>
+        </h1>
+        <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+          A structured path from zero to job-ready software engineer — {totalItems} hand-picked
+          resources across {resources.length} stages, in the order we teach them.
+        </p>
       </div>
 
-      <div className="space-y-16">
-        {resources.map((section, idx) => (
-          <motion.section
+      {/* Jump-to navigation */}
+      <nav className="mb-20 flex flex-wrap justify-center gap-2">
+        {resources.map((section) => (
+          <a
             key={section.category}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.1 }}
+            href={`#${slugify(section.category)}`}
+            className="rounded-full border border-border bg-card/50 px-4 py-2 text-sm text-muted-foreground backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
           >
-            <h2 className="mb-8 text-2xl font-bold tracking-tight">{section.category}</h2>
+            {section.category}
+          </a>
+        ))}
+      </nav>
+
+      <div className="space-y-20">
+        {resources.map((section) => (
+          <section key={section.category} id={slugify(section.category)} className="scroll-mt-24">
+            <Reveal>
+              <div className="mb-8 flex items-center gap-4">
+                <h2 className="text-2xl font-bold tracking-tight">{section.category}</h2>
+                <span className="h-px flex-1 bg-border" />
+                <span className="text-sm text-muted-foreground">
+                  {section.items.length} resources
+                </span>
+              </div>
+            </Reveal>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {section.items.map((item) => (
-                <Card key={item.name} className="group transition-all hover:border-primary/50">
-                  <CardHeader>
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                      {item.icon}
-                    </div>
-                    <CardTitle>{item.name}</CardTitle>
-                    <CardDescription>{item.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button variant="ghost" size="sm" asChild className="group-hover:text-primary">
-                      <a href={item.link} target="_blank" rel="noreferrer" className="flex items-center gap-2">
-                        Visit Site <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </Button>
-                  </CardContent>
-                </Card>
+              {section.items.map((item, i) => (
+                <Reveal key={item.name} delay={i * 0.06} className="flex">
+                  <Card className="group lift flex w-full flex-col hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
+                    <CardHeader>
+                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-transform group-hover:scale-110">
+                        {item.icon}
+                      </div>
+                      <CardTitle>{item.name}</CardTitle>
+                      <CardDescription>{item.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="mt-auto">
+                      <Button variant="ghost" size="sm" asChild className="group-hover:text-primary">
+                        <a href={item.link} target="_blank" rel="noreferrer" className="flex items-center gap-2">
+                          Visit Site <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Reveal>
               ))}
             </div>
-          </motion.section>
+          </section>
         ))}
       </div>
     </div>

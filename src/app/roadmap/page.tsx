@@ -1,8 +1,9 @@
 "use client"
 import { motion } from "framer-motion";
-import { Code2, Layout, Zap, Database, Server, Rocket } from "lucide-react";
+import { Code2, Layout, Zap, Database, Server, Rocket, Trophy, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { hackathon } from "@/lib/hackathon";
 
 const phases = [
   {
@@ -69,7 +70,7 @@ const phases = [
 
 export default function RoadmapPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground p-8">
+    <div className="min-h-screen text-foreground px-4 py-16 sm:p-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
@@ -78,8 +79,8 @@ export default function RoadmapPage() {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          <h1 className="text-5xl font-bold mb-3 text-foreground">
-            Full-Stack Roadmap
+          <h1 className="text-balance text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
+            Full-Stack <span className="text-gradient">Roadmap</span>
           </h1>
           <p className="text-lg text-muted-foreground">
             16-week curriculum • 2 sessions/week • Portfolio-ready projects
@@ -91,7 +92,7 @@ export default function RoadmapPage() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="grid grid-cols-3 gap-6 mb-20"
+          className="grid grid-cols-3 gap-6 mb-20 rounded-2xl border border-border bg-card/50 py-8 backdrop-blur-sm"
         >
           <div className="text-center">
             <p className="text-3xl font-bold text-foreground mb-1">4</p>
@@ -107,18 +108,80 @@ export default function RoadmapPage() {
           </div>
         </motion.div>
 
+        {/* Hackathon Milestone */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mb-20 rounded-2xl border border-primary/30 bg-primary/5 p-8 backdrop-blur-sm"
+        >
+          <div className="flex items-start justify-between gap-6 mb-6">
+            <div>
+              <p className="text-sm text-muted-foreground mb-1">
+                {hackathon.dates} • {hackathon.duration}
+              </p>
+              <h3 className="text-2xl font-bold text-foreground">
+                Milestone: Internal Hackathon 2026
+              </h3>
+            </div>
+            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground shrink-0">
+              <Trophy className="w-6 h-6" />
+            </div>
+          </div>
+
+          <p className="text-muted-foreground mb-6">
+            The curriculum builds toward one thing: shipping something real under a deadline. Ten
+            teams of two to four students spend 24 hours on campus building a working prototype in
+            AI &amp; Machine Learning, Cybersecurity or Open Innovation — mentored through five
+            checkpoint rounds and judged the next morning. {hackathon.prizePool} in prizes.
+          </p>
+
+          <div className="flex flex-wrap gap-2 mb-8">
+            {[
+              "AI & Machine Learning",
+              "Cybersecurity",
+              "Open Innovation",
+              "Git & Version Control",
+              "Live Demo & Pitch",
+            ].map((topic) => (
+              <span
+                key={topic}
+                className="px-3 py-1 bg-background text-muted-foreground text-xs rounded-full border border-border"
+              >
+                {topic}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-4">
+            <Button asChild>
+              <a href={hackathon.registrationUrl} target="_blank" rel="noreferrer">
+                Register Your Team <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/hackathon">Event Details</Link>
+            </Button>
+          </div>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Registration closes {hackathon.registrationCloses} • {hackathon.fee}
+          </p>
+        </motion.div>
+
         {/* Timeline */}
         <div className="relative space-y-16">
           {phases.map((phase, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              data-reveal
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
               className="relative"
             >
               {/* Phase Card */}
-              <div className="border border-border rounded-lg p-8 hover:shadow-lg transition-shadow bg-card">
+              <div className="lift rounded-2xl border border-border bg-card/60 p-8 backdrop-blur-sm hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5">
                 {/* Phase Header */}
                 <div className="flex items-start justify-between mb-6">
                   <div>
@@ -171,9 +234,11 @@ export default function RoadmapPage() {
 
         {/* Footer CTA */}
         <motion.div
+          data-reveal
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
           className="mt-24 text-center border-t border-border pt-16"
         >
           <h2 className="text-3xl font-bold mb-3 text-foreground">
@@ -199,9 +264,11 @@ export default function RoadmapPage() {
 
       {/* Footer */}
       <motion.div
+        data-reveal
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 1.5 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
         className="mt-20 text-center text-muted-foreground text-sm"
       >
         <p>2 sessions/week • Wednesday & Thursday • 90 minutes each</p>

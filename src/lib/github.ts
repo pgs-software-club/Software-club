@@ -5,6 +5,7 @@ export interface Repository {
   html_url: string;
   language: string;
   stargazers_count: number;
+  forks_count: number;
   contributors_url: string;
 }
 
@@ -32,6 +33,7 @@ const MOCK_REPOS: Repository[] = [
     html_url: `https://github.com/${ORG_NAME}/club-website`,
     language: "TypeScript",
     stargazers_count: 12,
+    forks_count: 3,
     contributors_url: ""
   },
   {
@@ -41,6 +43,7 @@ const MOCK_REPOS: Repository[] = [
     html_url: `https://github.com/${ORG_NAME}/learning-resources`,
     language: "Markdown",
     stargazers_count: 8,
+    forks_count: 2,
     contributors_url: ""
   },
   {
@@ -50,6 +53,7 @@ const MOCK_REPOS: Repository[] = [
     html_url: `https://github.com/${ORG_NAME}/project-alpha`,
     language: "React",
     stargazers_count: 5,
+    forks_count: 1,
     contributors_url: ""
   }
 ];

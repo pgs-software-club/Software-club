@@ -5,6 +5,7 @@ import ErrorReporter from "@/components/ErrorReporter";
 
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 
 export const metadata: Metadata = {
   title: "PGS Software Club | Presidential Software Club",
@@ -34,8 +35,14 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Scroll reveals start at opacity 0 — without JS they would never
+            un-hide, so force them visible when scripting is unavailable. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
       </head>
       <body className="antialiased font-sans">
+        <AnimatedBackground />
         <Navbar />
         <main className="min-h-screen pt-16">
           {children}
