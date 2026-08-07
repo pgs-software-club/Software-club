@@ -5,8 +5,8 @@ export const hackathon = {
   name: "Internal Hackathon 2026",
   tagline: "Code. Create. Innovate.",
   organiser: "PGS Software Club",
-  dates: "11–12 September 2026",
-  datesLong: "Friday 11 September – Saturday 12 September 2026",
+  dates: "10–11 September 2026",
+  datesLong: "Thursday 10 September – Friday 11 September 2026",
   duration: "24 continuous hours",
   venue: "College Hall, Presidential Graduate School, Thapagaun",
   teams: "10 teams · 2–4 members each",
@@ -72,11 +72,11 @@ export const preEventTimeline = [
   { date: "10 Aug – 4 Sept 2026", milestone: "Registration window open; club representatives visit classes and answer queries" },
   { date: "4 September 2026", milestone: "Registration closes" },
   { date: "6 September 2026", milestone: "Ten teams confirmed and published across the three tracks; waiting list notified" },
-  { date: "8 September 2026", milestone: "Compulsory orientation and rule briefing for all team leads (one hour)" },
-  { date: "9 September 2026", milestone: "Mentor–team allocation published; guardian consent forms collected" },
-  { date: "10 September 2026", milestone: "Venue setup, network load test, power and seating check" },
-  { date: "11–12 September 2026", milestone: "Hackathon" },
-  { date: "By 26 September 2026", milestone: "Event report, settled accounts and project showcase published" },
+  { date: "7 September 2026", milestone: "Compulsory orientation and rule briefing for all team leads (one hour)" },
+  { date: "8 September 2026", milestone: "Mentor–team allocation published; guardian consent forms collected" },
+  { date: "9 September 2026", milestone: "Venue setup, network load test, power and seating check" },
+  { date: "10–11 September 2026", milestone: "Hackathon" },
+  { date: "By 25 September 2026", milestone: "Event report, settled accounts and project showcase published" },
 ];
 
 export const scheduleDayOne = [
@@ -213,7 +213,7 @@ export const faqs = [
   {
     question: "Can I work on an idea before the event?",
     answer:
-      "You can think about your idea, but no feature code may be written before the clock starts at 10:00 on 11 September. Repositories are registered at kickoff and commit history is reviewed.",
+      "You can think about your idea, but no feature code may be written before the clock starts at 10:00 on 10 September. Repositories are registered at kickoff and commit history is reviewed.",
   },
   {
     question: "Are AI coding assistants allowed?",

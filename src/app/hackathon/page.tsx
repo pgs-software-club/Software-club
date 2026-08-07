@@ -49,7 +49,7 @@ import {
 export const metadata: Metadata = {
   title: "Internal Hackathon 2026 | PGS Software Club",
   description:
-    "A 24-hour internal hackathon at Presidential Graduate School, 11–12 September 2026. Ten teams, three tracks, NPR 25,000 in prizes. Register now.",
+    "A 24-hour internal hackathon at Presidential Graduate School, 10–11 September 2026. Ten teams, three tracks, NPR 25,000 in prizes. Register now.",
 };
 
 const trackIcons = {
@@ -216,13 +216,13 @@ export default function HackathonPage() {
         <div className="mb-12">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">The 24 Hours</h2>
           <p className="mt-3 max-w-3xl text-muted-foreground">
-            The clock starts at 10:00 on Friday and stops at 09:00 on Saturday. Judging and the
-            closing ceremony run through the Saturday morning.
+            The clock starts at 10:00 on Thursday and stops at 09:00 on Friday. Judging and the
+            closing ceremony run through the Friday morning.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-          <ScheduleTable title="Day One — Friday 11 September" rows={scheduleDayOne} />
-          <ScheduleTable title="Day Two — Saturday 12 September" rows={scheduleDayTwo} />
+          <ScheduleTable title="Day One — Thursday 10 September" rows={scheduleDayOne} />
+          <ScheduleTable title="Day Two — Friday 11 September" rows={scheduleDayTwo} />
         </div>
       </section>
 
@@ -314,7 +314,7 @@ export default function HackathonPage() {
               ))}
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
-              Everything is submitted through the official submission form before 09:00 on 12
+              Everything is submitted through the official submission form before 09:00 on 11
               September. Incomplete submissions are evaluated only on what was received.
             </p>
           </div>
