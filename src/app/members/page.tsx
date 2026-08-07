@@ -1,10 +1,15 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { PageHeader } from "@/components/PageHeader";
+import { Reveal } from "@/components/Reveal";
 import { Users, Award, GraduationCap, Mail, Phone } from "lucide-react";
 import connectDB from "@/lib/mongodb";
 import Student from "@/models/Student";
+import { cookies } from "next/headers";
+import { verifyToken } from "@/lib/auth";
 
 // Configure the route to be dynamic since we're fetching database data
+
 export const dynamic = 'force-dynamic';
 // Revalidate every 10 minutes for member data
 export const revalidate = 600;
@@ -24,29 +29,33 @@ async function getStudents() {
 }
 
 export default async function MembersPage() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('admin-token')?.value;
+  const isAdmin = token ? !!verifyToken(token) : false;
+
   const members = await getStudents();
 
   return (
+
     <div className="container mx-auto px-4 py-24">
-      <div className="mb-16 text-center">
-        <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
-          Our Community
-        </Badge>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-          Meet the <span className="text-primary">Students</span>
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-          The dedicated students at Presidential Graduate School pursuing their academic excellence.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Our Community"
+        title={
+          <>
+            Meet the <span className="text-gradient">Students</span>
+          </>
+        }
+        description="The dedicated students at Presidential Graduate School pursuing their academic excellence."
+      />
 
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {members.map((member) => (
-          <Card key={member._id} className="group relative overflow-hidden transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5">
-            <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-primary to-purple-600 opacity-0 transition-opacity group-hover:opacity-100" />
-            
+        {members.map((member, i) => (
+          <Reveal key={member._id} delay={Math.min(i, 8) * 0.05}>
+          <Card className="group lift relative h-full overflow-hidden hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5">
+            <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-primary to-purple-600 opacity-0 transition-opacity group-hover:opacity-100" />
+
             <CardHeader className="flex flex-col items-center text-center">
-              <div className="relative mb-4 h-24 w-24 overflow-hidden rounded-full border-4 border-muted transition-transform group-hover:scale-105 group-hover:border-primary/20 bg-gradient-to-br from-primary/20 to-purple-600/20 flex items-center justify-center">
+              <div className="relative mb-4 h-24 w-24 overflow-hidden rounded-full border-4 border-muted transition-transform group-hover:scale-105 group-hover:border-primary/20 bg-linear-to-br from-primary/20 to-purple-600/20 flex items-center justify-center">
                 <GraduationCap className="h-12 w-12 text-primary" />
               </div>
               <CardTitle className="line-clamp-1">{member.name}</CardTitle>
@@ -58,26 +67,36 @@ export default async function MembersPage() {
             <CardContent>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  {member.email && (
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Mail className="h-4 w-4" />
-                      <span className="truncate">{member.email}</span>
-                    </div>
-                  )}
-                  {member.phone && (
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Phone className="h-4 w-4" />
-                      <span>{member.phone}</span>
+                  {isAdmin ? (
+                    <>
+                      {member.email && (
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Mail className="h-4 w-4" />
+                          <span className="truncate">{member.email}</span>
+                        </div>
+                      )}
+                      {member.phone && (
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Phone className="h-4 w-4" />
+                          <span>{member.phone}</span>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="flex items-center gap-2 text-sm italic text-muted-foreground/60">
+                      {/* <Mail className="h-4 w-4" />
+                      <span>Contact info hidden</span> */}
                     </div>
                   )}
                 </div>
-                
+
                 <div className="flex items-center justify-center gap-4 py-2">
+
                   <div className="flex flex-col items-center">
-                    <span className="text-lg font-bold text-primary">{member.course || 'N/A'}</span>
+                    <span className="text-lg font-bold text-primary">{member.course || member.areaOfStudy || 'BSCIT'}</span>
                     <span className="text-[10px] uppercase tracking-wider text-muted-foreground">Course</span>
                   </div>
-                  <div className="h-8 w-[1px] bg-border" />
+                  <div className="h-8 w-px bg-border" />
                   <div className="flex flex-col items-center">
                     <span className="text-lg font-bold text-primary">{member.year || 'N/A'}</span>
                     <span className="text-[10px] uppercase tracking-wider text-muted-foreground">Year</span>
@@ -93,10 +112,11 @@ export default async function MembersPage() {
               </div>
             </CardContent>
           </Card>
+          </Reveal>
         ))}
 
         {members.length === 0 && (
-          <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
+          <div className="col-span-full flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-20 text-center">
             <Users className="mb-4 h-12 w-12 text-muted-foreground" />
             <h3 className="text-xl font-medium">No students found</h3>
             <p className="text-muted-foreground">Students will appear here once they are added by the admin.</p>

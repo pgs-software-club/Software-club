@@ -1,13 +1,14 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
+import Admin from '@/models/Admin';
+import connectDB from './mongodb';
 
 const JWT_SECRET = process.env.JWT_SECRET || '';
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || '';
-const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || '';
 
 function checkEnvVars() {
-  if (!JWT_SECRET || !ADMIN_EMAIL || !ADMIN_PASSWORD_HASH) {
+  if (!JWT_SECRET || !ADMIN_EMAIL) {
     throw new Error('Missing required environment variables for authentication');
   }
 }
@@ -41,20 +42,20 @@ export function verifyToken(token: string): AdminPayload | null {
 export function isRateLimited(email: string): boolean {
   const attempts = loginAttempts.get(email);
   if (!attempts) return false;
-  
+
   const now = Date.now();
   if (now - attempts.lastAttempt > LOCKOUT_DURATION) {
     loginAttempts.delete(email);
     return false;
   }
-  
+
   return attempts.count >= MAX_LOGIN_ATTEMPTS;
 }
 
 export function recordLoginAttempt(email: string, success: boolean): void {
   const now = Date.now();
   const attempts = loginAttempts.get(email) || { count: 0, lastAttempt: now };
-  
+
   if (success) {
     loginAttempts.delete(email);
   } else {
@@ -66,20 +67,23 @@ export function recordLoginAttempt(email: string, success: boolean): void {
 
 export async function validateAdmin(email: string, password: string): Promise<boolean> {
   checkEnvVars();
-  // Normalize email
+  await connectDB();
+
   const normalizedEmail = email.toLowerCase().trim();
-  
-  if (normalizedEmail !== ADMIN_EMAIL.toLowerCase()) {
-    return false;
-  }
-  
-  // Check rate limiting
-  if (isRateLimited(normalizedEmail)) {
-    return false;
-  }
-  
+
   try {
-    const isValid = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
+    const admin = await Admin.findOne({ email: normalizedEmail });
+    if (!admin) return false;
+
+    if (isRateLimited(normalizedEmail)) return false;
+
+    const isValid = await bcrypt.compare(password, admin.password);
+
+    if (isValid) {
+      admin.lastLogin = new Date();
+      await admin.save();
+    }
+
     recordLoginAttempt(normalizedEmail, isValid);
     return isValid;
   } catch (error) {
@@ -95,11 +99,11 @@ export function generateCSRFToken(): string {
   const timestamp = Date.now().toString();
   const randomBytes = crypto.randomBytes(16).toString('hex');
   const payload = `${timestamp}:${randomBytes}`;
-  
+
   const hmac = crypto.createHmac('sha256', CSRF_SECRET);
   hmac.update(payload);
   const signature = hmac.digest('hex');
-  
+
   const token = Buffer.from(`${payload}:${signature}`).toString('base64');
   console.log(`Generated CSRF token (timestamp: ${new Date(parseInt(timestamp)).toISOString()})`);
   return token;
@@ -108,38 +112,38 @@ export function generateCSRFToken(): string {
 export function validateCSRFToken(token: string): boolean {
   try {
     console.log(`Validating CSRF token...`);
-    
+
     const decoded = Buffer.from(token, 'base64').toString('utf-8');
     const parts = decoded.split(':');
-    
+
     if (parts.length !== 3) {
       console.log('CSRF token has invalid format');
       return false;
     }
-    
+
     const [timestamp, randomBytes, signature] = parts;
     const payload = `${timestamp}:${randomBytes}`;
-    
+
     // Verify signature
     const hmac = crypto.createHmac('sha256', CSRF_SECRET);
     hmac.update(payload);
     const expectedSignature = hmac.digest('hex');
-    
+
     if (signature !== expectedSignature) {
       console.log('CSRF token signature mismatch');
       return false;
     }
-    
+
     // Check expiry (1 hour)
     const tokenTime = parseInt(timestamp);
     const now = Date.now();
     const maxAge = 60 * 60 * 1000; // 1 hour
-    
+
     if (now - tokenTime > maxAge) {
       console.log(`CSRF token expired (age: ${Math.round((now - tokenTime) / 1000 / 60)} minutes)`);
       return false;
     }
-    
+
     console.log('CSRF token is valid');
     return true;
   } catch (error) {
