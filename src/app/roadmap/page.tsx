@@ -121,7 +121,7 @@ export default function RoadmapPage() {
                 {hackathon.dates} • {hackathon.duration}
               </p>
               <h3 className="text-2xl font-bold text-foreground">
-                Milestone: Internal Hackathon 2026
+                Milestone: SparkX Hackathon 2026
               </h3>
             </div>
             <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground shrink-0">
@@ -131,9 +131,9 @@ export default function RoadmapPage() {
 
           <p className="text-muted-foreground mb-6">
             The curriculum builds toward one thing: shipping something real under a deadline. Ten
-            teams of two to four students spend 24 hours on campus building a working prototype in
-            AI &amp; Machine Learning, Cybersecurity or Open Innovation — mentored through five
-            checkpoint rounds and judged the next morning. {hackathon.prizePool} in prizes.
+            teams of two to four students get 24 hours across two days to build a working prototype
+            in AI &amp; Machine Learning, Cybersecurity or Open Innovation — mentored through five
+            checkpoint rounds and judged on the Friday morning. {hackathon.prizePool} in prizes.
           </p>
 
           <div className="flex flex-wrap gap-2 mb-8">

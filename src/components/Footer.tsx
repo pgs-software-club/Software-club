@@ -5,7 +5,7 @@ const resourceLinks = [
   { name: "Home", href: "/" },
   { name: "Roadmap", href: "/roadmap" },
   { name: "Learning Hub", href: "/resources" },
-  { name: "Hackathon 2026", href: "/hackathon" },
+  { name: "SparkX Hackathon", href: "/hackathon" },
 ];
 
 const communityLinks = [

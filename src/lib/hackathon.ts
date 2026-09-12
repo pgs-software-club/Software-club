@@ -1,30 +1,34 @@
-// Internal Hackathon 2026 — single source of truth for the event details shown
+// SparkX Hackathon 2026 — single source of truth for the event details shown
 // on the home page, the roadmap and the dedicated /hackathon page.
 
 export const hackathon = {
-  name: "Internal Hackathon 2026",
+  name: "SparkX Hackathon",
   tagline: "Code. Create. Innovate.",
   organiser: "PGS Software Club",
-  dates: "10–11 September 2026",
-  datesLong: "Thursday 10 September – Friday 11 September 2026",
+  dates: "17–18 September 2026",
+  datesLong: "Thursday 17 September – Friday 18 September 2026",
   duration: "24 continuous hours",
+  campusHours: "8:00 am – 5:00 pm on campus each day",
   venue: "College Hall, Presidential Graduate School, Thapagaun",
   teams: "10 teams · 2–4 members each",
   maxParticipants: 40,
   fee: "Free — open to all enrolled PGS students",
   prizePool: "NPR 25,000",
   registrationOpens: "10 August 2026",
-  registrationCloses: "4 September 2026",
+  registrationCloses: "13 September 2026",
   registrationUrl:
     "https://docs.google.com/forms/d/e/1FAIpQLScQrwZxr0GfU8nnWsBQE90c10hGb5zR1rPxrYBj6T_EVfRpqA/viewform",
 };
 
 export const stats = [
-  { value: "24", label: "Hours, on campus" },
+  { value: "24", label: "Hours on the clock" },
   { value: "10", label: "Teams · 2–4 members" },
   { value: "3", label: "Tracks · 3 prizes" },
   { value: "25K", label: "NPR prize money" },
 ];
+
+export const formatNote =
+  "The clock runs for twenty-four unbroken hours, from kickoff at 10:00 on Thursday 17 September to the hard submission deadline at 10:00 on Friday 18 September. Teams build on campus from 8:00 am to 5:00 pm on the first day, go home in the evening and keep building remotely, then return at 8:00 am on the second day for rehearsal, judging and the closing ceremony. Nobody stays overnight at the college.";
 
 export const tracks = [
   {
@@ -64,56 +68,56 @@ export const eligibility = [
   "Members of the organising committee, mentors and judges may not compete.",
   "The chosen track cannot be changed after the opening ceremony.",
   "Ten teams are admitted. If registrations exceed ten, teams are shortlisted on the strength of the 200-word idea abstract, balanced across the three tracks; the rest go on a waiting list.",
-  "Participants remain on campus for the full 24 hours and carry their college ID at all times.",
+  "Every member attends both campus days — 8:00 am to 5:00 pm on 17 September and from 8:00 am on 18 September — and carries a college ID at all times.",
+  "Work continues remotely between 5:00 pm and 8:00 am. That window is part of the twenty-four hours, and commits made in it are reviewed like any other.",
 ];
 
 export const preEventTimeline = [
   { date: "10 August 2026", milestone: "Registration opens — team name, members, team lead, chosen track and a 200-word idea abstract" },
-  { date: "10 Aug – 4 Sept 2026", milestone: "Registration window open; club representatives visit classes and answer queries" },
-  { date: "4 September 2026", milestone: "Registration closes" },
-  { date: "6 September 2026", milestone: "Ten teams confirmed and published across the three tracks; waiting list notified" },
-  { date: "7 September 2026", milestone: "Compulsory orientation and rule briefing for all team leads (one hour)" },
-  { date: "8 September 2026", milestone: "Mentor–team allocation published; guardian consent forms collected" },
-  { date: "9 September 2026", milestone: "Venue setup, network load test, power and seating check" },
-  { date: "10–11 September 2026", milestone: "Hackathon" },
-  { date: "By 25 September 2026", milestone: "Event report, settled accounts and project showcase published" },
+  { date: "10 Aug – 13 Sept 2026", milestone: "Registration window open; club representatives visit classes and answer queries" },
+  { date: "13 September 2026", milestone: "Registration closes" },
+  { date: "14 September 2026", milestone: "Ten teams confirmed and published across the three tracks; waiting list notified" },
+  { date: "15 September 2026", milestone: "Compulsory orientation and rule briefing for all team leads (one hour)" },
+  { date: "16 September 2026", milestone: "Mentor–team allocation published; venue setup, network load test, power and seating check" },
+  { date: "17–18 September 2026", milestone: "SparkX Hackathon" },
+  { date: "By 30 September 2026", milestone: "Event report, settled accounts and project showcase published" },
 ];
 
 export const scheduleDayOne = [
-  { time: "08:30 – 09:00", activity: "Reporting, ID verification and seat allotment" },
-  { time: "09:00 – 09:40", activity: "Opening ceremony — welcome address, rules, release of the track problem statements" },
-  { time: "09:40 – 10:00", activity: "Mentor introductions and team–mentor pairing" },
-  { time: "10:00", activity: "Clock starts — development begins; repositories created and registered", highlight: true },
-  { time: "11:30 – 12:30", activity: "Checkpoint 1 — problem statement and scope validation" },
-  { time: "13:00 – 14:00", activity: "Lunch (served at desks in rotation; the clock does not stop)" },
-  { time: "15:30 – 16:30", activity: "Checkpoint 2 — architecture and technology-stack review" },
-  { time: "17:00 – 17:30", activity: "Evening tea, coffee and snacks" },
-  { time: "19:30 – 20:30", activity: "Checkpoint 3 — progress review and MVP scope-cut advice" },
-  { time: "20:30 – 21:30", activity: "Dinner" },
-  { time: "22:00", activity: "Venue secured for the night; attendance roll call; no entry or exit without warden approval" },
-  { time: "23:30 – 00:30", activity: "Checkpoint 4 — overnight debugging clinic (on-call mentors)" },
+  { time: "08:00 – 08:45", activity: "Reporting, ID verification and seat allotment" },
+  { time: "08:45 – 09:30", activity: "Opening ceremony — welcome address, rules, release of the track problem statements" },
+  { time: "09:30 – 10:00", activity: "Mentor introductions and team–mentor pairing" },
+  { time: "10:00", activity: "Clock starts — the twenty-four hours begin; repositories created and registered", highlight: true },
+  { time: "11:00 – 12:00", activity: "Checkpoint 1 — problem statement and scope validation" },
+  { time: "12:30 – 13:15", activity: "Lunch (served at desks in rotation; the clock does not stop)" },
+  { time: "14:00 – 15:00", activity: "Checkpoint 2 — architecture and technology-stack review" },
+  { time: "15:00 – 15:30", activity: "Evening tea, coffee and snacks" },
+  { time: "15:45 – 16:45", activity: "Checkpoint 3 — progress review and MVP scope-cut advice" },
+  { time: "16:45 – 17:00", activity: "Daily close-out — attendance, progress roll call, overnight mentor roster published" },
+  { time: "17:00", activity: "Venue clears — teams go home and keep building remotely; the clock does not stop", highlight: true },
+  { time: "19:30 – 21:30", activity: "Checkpoint 4 — online debugging clinic on the club channel; mentors on call for blockers" },
 ];
 
 export const scheduleDayTwo = [
-  { time: "00:30 – 06:00", activity: "Overnight development — midnight snacks and the tea and coffee station remain open" },
-  { time: "06:00 – 07:00", activity: "Checkpoint 5 — demo rehearsal and pitch feedback" },
-  { time: "07:00 – 07:45", activity: "Breakfast" },
-  { time: "07:45 – 09:00", activity: "Final commits, documentation and submission upload" },
-  { time: "09:00", activity: "Clock stops — hard submission deadline. No commits after this time are evaluated", highlight: true },
-  { time: "09:00 – 09:30", activity: "Submission verification; presentation order drawn by lot" },
-  { time: "09:30 – 10:20", activity: "Judging — teams 1 to 5 (10 minutes each)" },
-  { time: "10:20 – 10:35", activity: "Break for judges and participants" },
-  { time: "10:35 – 11:25", activity: "Judging — teams 6 to 10" },
-  { time: "11:25 – 11:55", activity: "Panel deliberation and score consolidation" },
-  { time: "11:55 – 12:30", activity: "Closing ceremony — results, prizes, certificates and group photograph" },
+  { time: "08:00 – 08:30", activity: "Reporting and re-seating; network, projector and demo setup" },
+  { time: "08:30 – 09:15", activity: "Checkpoint 5 — demo rehearsal and pitch feedback" },
+  { time: "09:15 – 09:50", activity: "Final commits, documentation and submission upload" },
+  { time: "10:00", activity: "Clock stops at twenty-four hours — hard submission deadline; presentations begin", highlight: true },
+  { time: "10:00 – 10:50", activity: "Judging — teams 1 to 5 (10 minutes each)" },
+  { time: "10:50 – 11:05", activity: "Break for judges and participants" },
+  { time: "11:05 – 11:55", activity: "Judging — teams 6 to 10" },
+  { time: "11:55 – 12:30", activity: "Panel deliberation and score consolidation" },
+  { time: "12:30 – 13:00", activity: "Lunch" },
+  { time: "13:00 – 14:00", activity: "Winner announcement, prizes, certificates and closing ceremony", highlight: true },
+  { time: "14:00 – 15:00", activity: "Project showcase, group photograph and networking; venue reset" },
 ];
 
 export const checkpoints = [
-  { round: "CP 1", time: "11:30 – 12:30", focus: "Is the problem real, is the scope achievable in 24 hours, is the idea distinct?" },
-  { round: "CP 2", time: "15:30 – 16:30", focus: "Architecture, technology-stack sanity, data model, division of work" },
-  { round: "CP 3", time: "19:30 – 20:30", focus: "Honest progress check; cutting scope down to a demonstrable MVP" },
-  { round: "CP 4", time: "23:30 – 00:30", focus: "Debugging clinic — teams raise blockers, mentors pair on the hardest bugs" },
-  { round: "CP 5", time: "06:00 – 07:00", focus: "Demo rehearsal, pitch narrative, anticipated questions" },
+  { round: "CP 1", time: "Day 1 · 11:00 – 12:00", focus: "Is the problem real, is the scope achievable in 24 hours, is the idea distinct?" },
+  { round: "CP 2", time: "Day 1 · 14:00 – 15:00", focus: "Architecture, technology-stack sanity, data model, division of work" },
+  { round: "CP 3", time: "Day 1 · 15:45 – 16:45", focus: "Honest progress check; cutting scope down to a demonstrable MVP" },
+  { round: "CP 4", time: "Day 1 · 19:30 – 21:30", focus: "Online debugging clinic — teams raise blockers from home, mentors pair remotely on the hardest bugs" },
+  { round: "CP 5", time: "Day 2 · 08:30 – 09:15", focus: "Demo rehearsal, pitch narrative, anticipated questions" },
 ];
 
 export const mentorPanel = [
@@ -121,7 +125,7 @@ export const mentorPanel = [
   "Two alumni mentors working in the software industry, invited through the alumni network.",
   "Three industry professionals from Kathmandu technology companies — one aligned to each track.",
   "Mentors advise; they do not write code, and no code may be authored by anyone outside the team.",
-  "At least two mentors are present in the venue at any hour of the 24, including overnight.",
+  "At least two mentors are in the hall through both campus days, and an on-call roster covers the remote evening window.",
 ];
 
 export const submissions = [
@@ -157,7 +161,7 @@ export const codeRules = {
     "Unattributed code copied from an external source, or plagiarism of another team's work",
   ],
   note:
-    "All feature code must be written within the 24-hour window; repositories are registered at kickoff and commit history is reviewed. Every member must be able to explain any part of the submitted code during the question round.",
+    "All feature code must be written inside the 24-hour window, on campus or at home during the evening. Repositories are registered at kickoff and the full commit history is reviewed. Every member must be able to explain any part of the submitted code during the question round.",
 };
 
 export const judgingFormat = [
@@ -180,24 +184,113 @@ export const judgingCriteria = [
 export const awards = [
   {
     award: "Champion",
-    recognition: "Best team overall — trophy, winner certificates and cash prize",
-    prize: "NPR 15,000",
+    recognition: "Best team overall — trophy, winner certificates and the full cash prize",
+    prize: "NPR 20,000",
     featured: true,
   },
   {
-    award: "Track Winner",
-    recognition: "Highest-scoring team in the second track — trophy, certificates and cash prize",
-    prize: "NPR 5,000",
+    award: "First Runner-Up",
+    recognition: "Second-placed team overall — trophy, certificates and a sponsored gift hamper",
+    prize: "Gift hamper",
   },
   {
-    award: "Track Winner",
-    recognition: "Highest-scoring team in the third track — trophy, certificates and cash prize",
-    prize: "NPR 5,000",
+    award: "Second Runner-Up",
+    recognition: "Third-placed team overall — trophy, certificates and a sponsored gift hamper",
+    prize: "Gift hamper",
   },
 ];
 
 export const awardsNote =
-  "All ten teams are ranked on one common scale regardless of track. Every participant receives a certificate of participation and a digital badge, and all projects are published in a post-event showcase page for students' portfolios.";
+  "All ten teams are ranked on one common scale regardless of track. The cash prize of NPR 20,000 goes to the champion; the two runners-up receive sponsored gift hampers, and the prize pool is worth NPR 25,000 in total. Winners are announced at 1:00 pm on 18 September. Every participant receives a certificate of participation and a digital badge, and all projects are published in a post-event showcase page for students' portfolios.";
+
+export const organisingTeam = [
+  {
+    role: "Logistics",
+    icon: "boxes",
+    members: [{ name: "Vivek Raut" }, { name: "Tsering Lama" }],
+    description:
+      "Hall booking and setup: team tables, seating, power and extension boards, signage, water and waste. Opens the venue each morning and clears it at 5:00 pm.",
+  },
+  {
+    role: "MC / Host",
+    icon: "mic",
+    members: [{ name: "Abudayik Sharma" }, { name: "Ojoshwi Raymajhi" }],
+    description:
+      "Runs the stage: opening and closing ceremonies, announcements, mentor and judge introductions, timing calls in the judging round, prize distribution.",
+  },
+  {
+    role: "Tech Lead",
+    icon: "terminal",
+    members: [{ name: "Ishant Dahal" }, { name: "Rahul Singh" }],
+    description:
+      "Internet, projector and audio. Registers team repositories at kickoff, runs the countdown timer, verifies submissions before judging and archives them after.",
+  },
+  {
+    role: "Event Day",
+    icon: "calendar",
+    members: [{ name: "Abudayik Sharma" }, { name: "Ojoshwi Raymajhi" }],
+    description:
+      "Runs the 8:00 am – 5:00 pm schedule on both days: reporting and ID desk, checkpoint rounds, meal slots, attendance and the daily close-out.",
+  },
+  {
+    role: "Volunteer Team",
+    icon: "users",
+    members: [
+      { name: "Anup Prajapati" },
+      { name: "Bidhanshu Soni" },
+      { name: "Safal Subedi" },
+      { name: "Ayan Akhtar Ansari" },
+      { name: "Pratiyga Mahato", note: "after content work" },
+      { name: "Jenia Shahi", note: "after content work" },
+      { name: "Karuna Joshi", note: "after content work" },
+    ],
+    description:
+      "Floor support in shift pairs: registration desk, guiding participants, table-to-table help requests, refreshment service and room reset each day.",
+  },
+  {
+    role: "PR Lead",
+    icon: "megaphone",
+    members: [
+      { name: "Lagzen Thakuri", note: "Lead" },
+      { name: "Shibam Guragai", note: "Co-Lead" },
+    ],
+    description:
+      "Publicity and outreach: posters and class announcements, sponsor and alumni approaches, invitations to mentors and judges, and the post-event report.",
+  },
+  {
+    role: "Content Creation",
+    icon: "camera",
+    members: [
+      { name: "Ojoshwi Raymajhi" },
+      { name: "Pratiyga Mahato" },
+      { name: "Jenia Shahi" },
+      { name: "Karuna Joshi" },
+    ],
+    description:
+      "Pre-event content only: promotional posters and graphics, teaser photography and videography, captions and written copy, and the announcement reels published before the hackathon. Once that work is done, Pratiyga Mahato, Jenia Shahi and Karuna Joshi join the volunteer team for the event days.",
+  },
+  {
+    role: "Social Media",
+    icon: "share",
+    members: [{ name: "Pema Sherpa" }, { name: "Saroj Tamang" }],
+    description:
+      "Runs the club channels: teasers, countdown, daily live updates during the event, results posts and replies to participant queries.",
+  },
+];
+
+export const organisingTeamNote =
+  "Eight desks, every one of them student-run. If you are unsure who to ask on the day, start at the registration desk and a volunteer will route you.";
+
+export const sponsors = [
+  { name: "ShyenaSec", url: "https://www.linkedin.com/company/shyenasec" },
+  { name: "Himalaya Cloud", url: "https://himalaya.cloud/" },
+  { name: "Mudita", url: "https://mudita.com.np/" },
+  { name: "GitHub", url: "https://github.com/" },
+  { name: "Thaun", url: "https://thaun.rahaar.com/" },
+];
+
+export const sponsorsNote =
+  "SparkX runs on the support of the organisations below. Sponsors acquire no rights over participant work — every team keeps full ownership of what it builds.";
 
 export const faqs = [
   {
@@ -213,7 +306,7 @@ export const faqs = [
   {
     question: "Can I work on an idea before the event?",
     answer:
-      "You can think about your idea, but no feature code may be written before the clock starts at 10:00 on 10 September. Repositories are registered at kickoff and commit history is reviewed.",
+      "You can think about your idea, but no feature code may be written before the clock starts at 10:00 on 17 September. Repositories are registered at kickoff and commit history is reviewed.",
   },
   {
     question: "Are AI coding assistants allowed?",
@@ -221,9 +314,14 @@ export const faqs = [
       "Yes, and their use is encouraged — provided you disclose which tools you used and for what in your README. Every member must be able to explain any part of the submitted code when the judges ask.",
   },
   {
-    question: "Do we really stay the whole night?",
+    question: "Do we stay on campus overnight?",
     answer:
-      "Yes. Participants remain on campus for the full 24 hours. The venue is secured at 22:00 with a roll call, separate rest zones for male and female participants, faculty and night wardens on duty throughout, and a first-aider on call.",
+      "No. The hall clears at 5:00 pm on 17 September and everyone goes home. The clock keeps running while you are away, so teams that want to keep building overnight are free to do so from home, and mentors are on call on the club channel from 19:30 to 21:30. You report back at 8:00 am on 18 September.",
+  },
+  {
+    question: "When are the winners announced?",
+    answer:
+      "Presentations start at 10:00 am on 18 September, the panel deliberates over lunch, and the winners are announced at 1:00 pm in the closing ceremony.",
   },
   {
     question: "Who owns what we build?",
