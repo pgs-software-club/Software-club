@@ -50,7 +50,7 @@ export default async function Home() {
                 <span className="rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary-foreground">
                   New
                 </span>
-                <span className="font-medium">Internal Hackathon 2026 — registration open</span>
+                <span className="font-medium">SparkX Hackathon 2026 — registration open</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <h1 className="text-balance text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
@@ -109,15 +109,15 @@ export default async function Home() {
                   Flagship Event · Registration Open
                 </Badge>
                 <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">
-                  Internal <span className="text-primary">Hackathon</span> 2026
+                  Spark<span className="text-primary">X</span> Hackathon
                 </h2>
                 <p className="mt-3 text-xl font-medium text-muted-foreground">
                   &ldquo;{hackathon.tagline}&rdquo;
                 </p>
                 <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-                  Ten teams. Twenty-four hours on campus. Build a working software prototype
-                  overnight in one of three tracks, with faculty, alumni and industry mentors beside
-                  you through five checkpoint rounds.
+                  Ten teams. One twenty-four hour clock. Build a working software prototype in
+                  one of three tracks across two campus days, with faculty, alumni and industry
+                  mentors beside you through five checkpoint rounds.
                 </p>
 
                 <div className="mt-8 flex flex-col gap-3 text-sm text-muted-foreground">
@@ -131,7 +131,7 @@ export default async function Home() {
                   </span>
                   <span className="flex items-center gap-3">
                     <Trophy className="h-4 w-4 shrink-0 text-primary" />
-                    {hackathon.prizePool} in prizes, plus trophies and certificates
+                    {hackathon.prizePool} prize pool — NPR 20,000 cash to the champion
                   </span>
                   <span className="flex items-center gap-3">
                     <Clock className="h-4 w-4 shrink-0 text-primary" />

@@ -16,6 +16,14 @@ import {
   ShieldCheck,
   FileCode2,
   Sparkles,
+  Boxes,
+  Mic,
+  Terminal,
+  Megaphone,
+  Camera,
+  Share2,
+  Handshake,
+  Sunset,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -29,6 +37,7 @@ import {
 import {
   hackathon,
   stats,
+  formatNote,
   tracks,
   trackNote,
   eligibility,
@@ -43,19 +52,34 @@ import {
   judgingCriteria,
   awards,
   awardsNote,
+  organisingTeam,
+  organisingTeamNote,
+  sponsors,
+  sponsorsNote,
   faqs,
 } from "@/lib/hackathon";
 
 export const metadata: Metadata = {
-  title: "Internal Hackathon 2026 | PGS Software Club",
+  title: "SparkX Hackathon 2026 | PGS Software Club",
   description:
-    "A 24-hour internal hackathon at Presidential Graduate School, 10–11 September 2026. Ten teams, three tracks, NPR 25,000 in prizes. Register now.",
+    "A 24-hour hackathon at Presidential Graduate School, 17–18 September 2026. Ten teams, three tracks, NPR 25,000 in prizes. Register now.",
 };
 
 const trackIcons = {
   brain: Brain,
   shield: Shield,
   lightbulb: Lightbulb,
+} as const;
+
+const roleIcons = {
+  boxes: Boxes,
+  mic: Mic,
+  terminal: Terminal,
+  calendar: CalendarDays,
+  users: Users,
+  megaphone: Megaphone,
+  camera: Camera,
+  share: Share2,
 } as const;
 
 function ScheduleTable({
@@ -108,14 +132,14 @@ export default function HackathonPage() {
             {hackathon.organiser} · Flagship Event
           </Badge>
           <h1 className="text-balance text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
-            Internal <span className="text-gradient">Hackathon</span> 2026
+            Spark<span className="text-gradient">X</span> Hackathon
           </h1>
           <p className="mt-6 text-xl font-medium text-muted-foreground sm:text-2xl">
             &ldquo;{hackathon.tagline}&rdquo;
           </p>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            Twenty-four hours, ten teams, three tracks. Build a working software prototype overnight
-            on campus, with faculty, alumni and industry mentors beside you the whole way.
+            Twenty-four hours, ten teams, three tracks. Two days on campus with faculty, alumni and
+            industry mentors beside you, and one evening at home where the clock keeps running.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
@@ -127,6 +151,9 @@ export default function HackathonPage() {
             </span>
             <span className="flex items-center gap-2">
               <Users className="h-4 w-4 text-primary" /> {hackathon.fee}
+            </span>
+            <span className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-primary" /> {hackathon.campusHours}
             </span>
           </div>
 
@@ -215,14 +242,19 @@ export default function HackathonPage() {
       <section id="schedule" className="container mx-auto scroll-mt-24 px-4">
         <div className="mb-12">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">The 24 Hours</h2>
-          <p className="mt-3 max-w-3xl text-muted-foreground">
-            The clock starts at 10:00 on Thursday and stops at 09:00 on Friday. Judging and the
-            closing ceremony run through the Friday morning.
-          </p>
+          <p className="mt-3 max-w-3xl text-muted-foreground">{formatNote}</p>
         </div>
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-          <ScheduleTable title="Day One — Thursday 10 September" rows={scheduleDayOne} />
-          <ScheduleTable title="Day Two — Friday 11 September" rows={scheduleDayTwo} />
+          <ScheduleTable title="Day One — Thursday 17 September" rows={scheduleDayOne} />
+          <ScheduleTable title="Day Two — Friday 18 September" rows={scheduleDayTwo} />
+        </div>
+        <div className="mt-8 flex flex-col gap-3 rounded-xl border border-primary/20 bg-primary/5 p-5 sm:flex-row sm:items-center sm:gap-5">
+          <Sunset className="h-6 w-6 shrink-0 text-primary" />
+          <p className="text-sm text-muted-foreground">
+            <span className="font-semibold text-foreground">Nobody sleeps at the college.</span>{" "}
+            The hall clears at 5:00 pm on Thursday and reopens at 8:00 am on Friday. The clock does
+            not pause in between — keep building from home if you want the hours.
+          </p>
         </div>
       </section>
 
@@ -236,9 +268,9 @@ export default function HackathonPage() {
             Five Checkpoint Rounds
           </h2>
           <p className="mt-3 max-w-3xl text-muted-foreground">
-            Mentors move through the venue in five scheduled rounds, visiting every team in turn.
-            Each round has a defined purpose, so teams get the right kind of advice at the right
-            stage of the build.
+            Mentors visit every team in five scheduled rounds — three in the hall on Thursday, one
+            online during the Thursday evening, and one before judging on Friday morning. Each round
+            has a defined purpose, so teams get the right kind of advice at the right stage.
           </p>
         </div>
 
@@ -314,7 +346,7 @@ export default function HackathonPage() {
               ))}
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
-              Everything is submitted through the official submission form before 09:00 on 11
+              Everything is submitted through the official submission form before 10:00 on 18
               September. Incomplete submissions are evaluated only on what was received.
             </p>
           </div>
@@ -428,7 +460,7 @@ export default function HackathonPage() {
                   <Trophy
                     className={`h-6 w-6 ${award.featured ? "text-primary" : "text-muted-foreground"}`}
                   />
-                  <span className="text-2xl font-bold text-primary">{award.prize}</span>
+                  <span className="text-right text-xl font-bold text-primary">{award.prize}</span>
                 </div>
                 <CardTitle className="mt-4">{award.award}</CardTitle>
                 <CardDescription className="text-base">{award.recognition}</CardDescription>
@@ -438,28 +470,105 @@ export default function HackathonPage() {
         </div>
       </section>
 
-      {/* Overnight & safety */}
+      {/* Sponsors */}
+      <section className="container mx-auto px-4">
+        <div className="mb-12 text-center">
+          <Handshake className="mx-auto mb-4 h-10 w-10 text-primary" />
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Sponsors &amp; Partners</h2>
+          <p className="mx-auto mt-4 max-w-3xl text-muted-foreground">{sponsorsNote}</p>
+        </div>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          {sponsors.map((sponsor) => (
+            <a
+              key={sponsor.name}
+              href={sponsor.url}
+              target="_blank"
+              rel="noreferrer"
+              className="lift flex min-h-28 items-center justify-center rounded-xl border border-border bg-card/60 px-5 py-6 text-center backdrop-blur-sm hover:border-primary/40"
+            >
+              <span className="text-base font-semibold">{sponsor.name}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* Organising team */}
+      <section id="team" className="container mx-auto scroll-mt-24 px-4">
+        <div className="mb-12">
+          <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
+            Organising Committee
+          </Badge>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Who Runs SparkX</h2>
+          <p className="mt-3 max-w-3xl text-muted-foreground">{organisingTeamNote}</p>
+        </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {organisingTeam.map((desk) => {
+            const Icon = roleIcons[desk.icon as keyof typeof roleIcons];
+            return (
+              <div
+                key={desk.role}
+                className="lift flex h-full flex-col rounded-xl border border-border bg-card/60 p-6 backdrop-blur-sm hover:border-primary/40"
+              >
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <h3 className="text-lg font-semibold">{desk.role}</h3>
+                </div>
+                <div className="mb-4 flex flex-wrap gap-2">
+                  {desk.members.map((member) => (
+                    <span
+                      key={member.name + (member.note ?? "")}
+                      className="rounded-full border border-border bg-background/60 px-3 py-1 text-sm"
+                    >
+                      {member.name}
+                      {member.note ? (
+                        <span className="ml-1.5 text-xs text-muted-foreground">
+                          {member.note}
+                        </span>
+                      ) : null}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground">{desk.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Care & conduct */}
       <section className="container mx-auto px-4">
         <div className="rounded-2xl border border-border bg-card/60 p-8 backdrop-blur-sm sm:p-12">
           <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold tracking-tight">
-            <Clock className="h-6 w-6 text-primary" /> Staying Overnight
+            <Clock className="h-6 w-6 text-primary" /> On Campus, and the Evening Between
           </h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "Supervision",
+                title: "Campus hours",
                 detail:
-                  "At least two faculty members and two committee members on duty at all times, including overnight, on a published roster. Female faculty or staff present through the night.",
+                  "The hall is open 8:00 am to 5:00 pm on both days. Nobody stays overnight at the college, and the venue is cleared and locked at 5:00 pm.",
               },
               {
                 title: "Access control",
                 detail:
-                  "Entry only on production of a college ID and event badge. The venue closes at 22:00; an entry and exit register is maintained.",
+                  "Entry only on production of a college ID and event badge. An entry and exit register is maintained at the reporting desk each morning.",
               },
               {
-                title: "Rest areas",
+                title: "The evening window",
                 detail:
-                  "Separate designated rest zones for male and female participants, adjacent to but distinct from the working hall.",
+                  "Between 5:00 pm and 8:00 am teams build from home. Mentors are on call on the club channel from 19:30 to 21:30 for the debugging clinic.",
+              },
+              {
+                title: "Supervision",
+                detail:
+                  "At least two faculty members and two committee members on duty through every campus hour, on a published roster.",
+              },
+              {
+                title: "Food and drink",
+                detail:
+                  "Lunch and evening snacks on day one, lunch on day two, and a self-service tea and coffee counter open through both campus days.",
               },
               {
                 title: "Medical",
@@ -467,9 +576,9 @@ export default function HackathonPage() {
                   "A stocked first-aid kit at the help desk, a trained first-aider on duty, and hospital and on-call vehicle numbers posted at the desk.",
               },
               {
-                title: "Food for 24 hours",
+                title: "Getting home",
                 detail:
-                  "Lunch, evening snacks, dinner, a midnight refreshment and breakfast — plus a self-service tea and coffee counter open the whole time.",
+                  "Volunteers see participants out at 5:00 pm. Tell the event-day desk if you need help arranging transport.",
               },
               {
                 title: "Code of conduct",
@@ -510,6 +619,9 @@ export default function HackathonPage() {
         <div className="rounded-3xl bg-primary px-8 py-16 text-center text-primary-foreground sm:px-16">
           <Sparkles className="mx-auto mb-6 h-10 w-10" />
           <h2 className="text-3xl font-bold sm:text-5xl">Twenty-four hours. One prototype.</h2>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-primary-foreground/80">
+            17–18 September 2026 · winners announced at 1:00 pm on the Friday.
+          </p>
           <p className="mx-auto mt-6 max-w-xl text-lg text-primary-foreground/80">
             Registration is free and open to all enrolled PGS students. Ten team slots — bring two to
             four people and a 200-word idea.

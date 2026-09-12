@@ -89,7 +89,7 @@ export default function LeadershipTeams() {
   ];
 
   const advisors: TeamMember[] = [
-    { name: "Aashish Dhakal", role: "Club Advisor" },
+    { name: "Aashish Dhakal", role: "Club Advisor", github: "AashishDhakal" },
     { name: "Bipin Ghimire", role: "Club Advisor" },
     { name: "Cyrus Gautam", role: "Club Advisor" },
     { name: "Sagar Shrestha", role: "Club Advisor", github: "Chief-spartan-117" },
@@ -229,8 +229,13 @@ export default function LeadershipTeams() {
 
         {/* Advisors Content */}
         <TabsContent value="advisors" className="w-full animate-in fade-in-50 duration-300">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 max-w-7xl mx-auto px-4">
-            {advisors.map(renderMemberCard)}
+          <div className="max-w-7xl mx-auto px-4 space-y-10">
+            <div className="mx-auto w-full max-w-xs">
+              {renderMemberCard(advisors[0])}
+            </div>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+              {advisors.slice(1).map(renderMemberCard)}
+            </div>
           </div>
         </TabsContent>
 
